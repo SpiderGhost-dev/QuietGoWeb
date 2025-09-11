@@ -158,7 +158,8 @@
 
 /* File upload drag states */
 .file-upload-drag-over {
-  @apply border-primary bg-primary/5;
+  @apply border-primary;
+  background-color: hsl(var(--primary) / 0.05);
 }
 
 /* Health data visualization */
