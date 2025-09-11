@@ -52,7 +52,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="bg-background text-foreground font-sans antialiased">
+    <div className="bg-foreground text-background font-sans antialiased">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-foreground text-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -176,7 +176,7 @@ export default function Landing() {
           {/* App Download Buttons - Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             {/* iOS App Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card/20 backdrop-blur-sm border-2 border-primary/50 hover:border-primary/70" data-testid="button-app-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-primary text-primary-foreground border-2 border-primary hover:border-primary/70" data-testid="button-app-store">
               <Apple className="text-4xl mr-5 text-primary" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Download on the</div>
@@ -184,7 +184,7 @@ export default function Landing() {
               </div>
             </Card>
             {/* Google Play Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card/20 backdrop-blur-sm border-2 border-accent/50 hover:border-accent/70" data-testid="button-play-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-accent text-accent-foreground border-2 border-accent hover:border-accent/70" data-testid="button-play-store">
               <Play className="text-4xl mr-5 text-accent fill-current" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Get it on</div>
@@ -200,7 +200,7 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-card">
+      <section id="features" className="py-20 bg-foreground text-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Snap it. Understand it. Build a routine.</h2>
@@ -298,7 +298,7 @@ export default function Landing() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-background">
+      <section id="pricing" className="py-20 bg-foreground text-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Simple, transparent pricing</h2>
           <p className="text-lg text-muted-foreground mb-12">Start free, upgrade when you're ready for deeper insights</p>
@@ -413,7 +413,7 @@ export default function Landing() {
       </section>
 
       {/* Privacy & Security */}
-      <section id="privacy" className="py-20 bg-card">
+      <section id="privacy" className="py-20 bg-foreground text-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Your privacy, our priority</h2>

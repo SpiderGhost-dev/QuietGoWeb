@@ -12,11 +12,11 @@
   --popover-foreground: hsl(210 10% 18%);
   --primary: hsl(120, 10%, 58%); /* #899c89 */
   --primary-foreground: hsl(60 56% 96%);
-  --secondary: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
+  --secondary: #563E2D;
   --secondary-foreground: hsl(210 10% 18%);
   --muted: hsl(60 35% 78%); /* Richer muted */
   --muted-foreground: hsl(210, 8%, 35%); /* Darker muted text */
-  --accent: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
+  --accent: #563E2D;
   --accent-foreground: hsl(60 56% 96%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(60 56% 96%);
@@ -61,11 +61,11 @@
   --popover-foreground: hsl(60 56% 91%);
   --primary: hsl(94 30% 50%); /* Brighter Sage for dark mode */
   --primary-foreground: hsl(210 10% 12%);
-  --secondary: hsl(204, 34%, 41%); /* Kashmir Blue for dark mode */
+  --secondary: #563E2D;
   --secondary-foreground: hsl(210 10% 12%);
   --muted: hsl(210 5% 20%);
   --muted-foreground: hsl(210 5% 65%);
-  --accent: hsl(204, 34%, 41%); /* Kashmir Blue for dark mode */
+  --accent: #563E2D;
   --accent-foreground: hsl(210 10% 12%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(60 56% 91%);
