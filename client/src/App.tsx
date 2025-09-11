@@ -10,8 +10,7 @@ import Dashboard from "@/pages/Dashboard";
 import Subscribe from "@/pages/Subscribe";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
-import Privacy from "@/pages/Privacy";
-import Terms from "@/pages/Terms";
+import Legal from "@/pages/Legal";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,8 +21,10 @@ function Router() {
       {/* Static pages accessible to everyone */}
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
-      <Route path="/privacy" component={Privacy} />
-      <Route path="/terms" component={Terms} />
+      <Route path="/legal" component={Legal} />
+      {/* Legacy routes redirect to combined legal page */}
+      <Route path="/privacy" component={Legal} />
+      <Route path="/terms" component={Legal} />
       
       {/* Authentication-dependent routes */}
       {isLoading || !isAuthenticated ? (

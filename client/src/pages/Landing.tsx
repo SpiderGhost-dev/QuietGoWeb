@@ -574,8 +574,7 @@ export default function Landing() {
             <div>
               <h3 className="font-semibold mb-3">Legal</h3>
               <ul className="space-y-2 text-sm text-background/70">
-                <li><Link href="/privacy" className="hover:text-background transition-colors" data-testid="link-privacy">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-background transition-colors" data-testid="link-terms">Terms of Service</Link></li>
+                <li><Link href="/legal" className="hover:text-background transition-colors" data-testid="link-legal">Terms & Privacy</Link></li>
                 <li><button onClick={() => scrollToSection('privacy')} className="hover:text-background transition-colors" data-testid="link-privacy-section">Data Protection</button></li>
                 <li><a href="#" className="hover:text-background transition-colors">HIPAA Notice</a></li>
               </ul>
