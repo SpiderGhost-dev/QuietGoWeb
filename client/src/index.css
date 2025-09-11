@@ -61,11 +61,11 @@
   --popover-foreground: hsl(60 56% 91%);
   --primary: hsl(94 30% 50%); /* Brighter Sage for dark mode */
   --primary-foreground: hsl(210 10% 12%);
-  --secondary: hsl(19 35% 65%); /* Adjusted Logo Rose for dark mode */
+  --secondary: hsl(204, 34%, 41%); /* Kashmir Blue for dark mode */
   --secondary-foreground: hsl(210 10% 12%);
   --muted: hsl(210 5% 20%);
   --muted-foreground: hsl(210 5% 65%);
-  --accent: hsl(19 35% 65%); /* Adjusted Logo Rose for dark mode */
+  --accent: hsl(204, 34%, 41%); /* Kashmir Blue for dark mode */
   --accent-foreground: hsl(210 10% 12%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(60 56% 91%);

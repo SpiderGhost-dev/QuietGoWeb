@@ -52,7 +52,7 @@ export default function Landing() {
   };
 
   return (
-    <div className="bg-background text-foreground font-sans antialiased">
+    <div className="bg-foreground text-background font-sans antialiased">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-foreground text-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -176,7 +176,7 @@ export default function Landing() {
           {/* App Download Buttons - Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             {/* iOS App Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-background border-2 border-primary/50 hover:border-primary/70" data-testid="button-app-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card/20 backdrop-blur-sm border-2 border-primary/50 hover:border-primary/70" data-testid="button-app-store">
               <Apple className="text-4xl mr-5 text-primary" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Download on the</div>
@@ -184,7 +184,7 @@ export default function Landing() {
               </div>
             </Card>
             {/* Google Play Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-background border-2 border-accent/50 hover:border-accent/70" data-testid="button-play-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card/20 backdrop-blur-sm border-2 border-accent/50 hover:border-accent/70" data-testid="button-play-store">
               <Play className="text-4xl mr-5 text-accent fill-current" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Get it on</div>
@@ -200,7 +200,7 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-card">
+      <section id="features" className="py-20 bg-foreground text-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Snap it. Understand it. Build a routine.</h2>
@@ -211,7 +211,7 @@ export default function Landing() {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* AI Stool Analysis */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-stool-analysis">
+            <Card className="bg-card text-card-foreground p-6 hover:shadow-lg transition-all" data-testid="card-stool-analysis">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <Camera className="text-primary text-xl" />
               </div>
@@ -225,7 +225,7 @@ export default function Landing() {
             </Card>
 
             {/* Meal Photo AI */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-meal-ai">
+            <Card className="bg-card text-card-foreground p-6 hover:shadow-lg transition-all" data-testid="card-meal-ai">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <Utensils className="text-accent text-xl" />
               </div>
@@ -239,7 +239,7 @@ export default function Landing() {
             </Card>
 
             {/* Pattern Recognition */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-patterns">
+            <Card className="bg-card text-card-foreground p-6 hover:shadow-lg transition-all" data-testid="card-patterns">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <TrendingUp className="text-primary text-xl" />
               </div>
@@ -253,7 +253,7 @@ export default function Landing() {
             </Card>
 
             {/* Privacy First */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-privacy">
+            <Card className="bg-card text-card-foreground p-6 hover:shadow-lg transition-all" data-testid="card-privacy">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <Shield className="text-primary text-xl" />
               </div>
@@ -267,7 +267,7 @@ export default function Landing() {
             </Card>
 
             {/* View-Only Sharing */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-sharing">
+            <Card className="bg-card text-card-foreground p-6 hover:shadow-lg transition-all" data-testid="card-sharing">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <Eye className="text-accent text-xl" />
               </div>
@@ -281,7 +281,7 @@ export default function Landing() {
             </Card>
 
             {/* Professional Reports */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-reports">
+            <Card className="bg-card text-card-foreground p-6 hover:shadow-lg transition-all" data-testid="card-reports">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <FileText className="text-primary text-xl" />
               </div>
@@ -298,7 +298,7 @@ export default function Landing() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-background">
+      <section id="pricing" className="py-20 bg-foreground text-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Simple, transparent pricing</h2>
           <p className="text-lg text-muted-foreground mb-12">Start free, upgrade when you're ready for deeper insights</p>
