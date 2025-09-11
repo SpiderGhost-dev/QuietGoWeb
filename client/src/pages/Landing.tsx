@@ -176,19 +176,19 @@ export default function Landing() {
           {/* App Download Buttons - Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             {/* iOS App Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-primary text-primary-foreground border-2 border-primary hover:border-primary/70" data-testid="button-app-store">
-              <Apple className="text-4xl mr-5 text-primary" />
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer border-2 hover:scale-110" data-testid="button-app-store" style={{backgroundColor: 'rgb(50, 50, 50)', borderColor: 'rgb(70, 70, 70)'}}>
+              <Apple className="text-4xl mr-5 text-white" />
               <div className="text-left">
-                <div className="text-sm text-muted-foreground font-medium">Download on the</div>
-                <div className="text-xl font-bold text-foreground">App Store</div>
+                <div className="text-sm font-medium text-gray-300">Download on the</div>
+                <div className="text-xl font-bold text-white">App Store</div>
               </div>
             </Card>
             {/* Google Play Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-accent text-accent-foreground border-2 border-accent hover:border-accent/70" data-testid="button-play-store">
-              <Play className="text-4xl mr-5 text-accent fill-current" />
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer border-2 hover:scale-110" data-testid="button-play-store" style={{backgroundColor: 'rgb(50, 50, 50)', borderColor: 'rgb(70, 70, 70)'}}>
+              <Play className="text-4xl mr-5 text-white fill-current" />
               <div className="text-left">
-                <div className="text-sm text-muted-foreground font-medium">Get it on</div>
-                <div className="text-xl font-bold text-foreground">Google Play</div>
+                <div className="text-sm font-medium text-gray-300">Get it on</div>
+                <div className="text-xl font-bold text-white">Google Play</div>
               </div>
             </Card>
           </div>
@@ -225,15 +225,15 @@ export default function Landing() {
             </Card>
 
             {/* Meal Photo AI */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-meal-ai">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Utensils className="text-accent text-xl" />
+            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-meal-ai" style={{backgroundColor: '#563E2D'}}>
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{backgroundColor: 'rgba(86, 62, 45, 0.3)'}}>
+                <Utensils className="text-white text-xl" />
               </div>
               <h3 className="text-xl font-semibold mb-3">CalcuPlate Photo AI</h3>
               <p className="text-muted-foreground mb-4">
                 Automatically detect foods, estimate portions, and calculate calories and macros with one-tap edits.
               </p>
-              <Badge variant="outline" className="text-accent border-accent">
+              <Badge className="bg-white text-black border-white">
                 $2.99/mo add-on service
               </Badge>
             </Card>
@@ -267,15 +267,15 @@ export default function Landing() {
             </Card>
 
             {/* View-Only Sharing */}
-            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-sharing">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Eye className="text-accent text-xl" />
+            <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-sharing" style={{backgroundColor: '#563E2D'}}>
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{backgroundColor: 'rgba(86, 62, 45, 0.3)'}}>
+                <Eye className="text-white text-xl" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Caregiver Sharing</h3>
               <p className="text-muted-foreground mb-4">
                 Share trend data with doctors, trainers, or caregivers. View-only access, revokable anytime.
               </p>
-              <Badge variant="outline" className="text-accent border-accent">
+              <Badge className="bg-white text-black border-white">
                 No photos shared by default
               </Badge>
             </Card>
@@ -372,32 +372,31 @@ export default function Landing() {
             </Card>
 
             {/* CalcuPlate Add-on */}
-            <Card className="p-6 relative" data-testid="card-meal-ai-addon">
-              <h3 className="text-xl font-semibold mb-2">CalcuPlate</h3>
-              <div className="text-3xl font-bold mb-1">+$2.99<span className="text-base text-muted-foreground">/mo</span></div>
-              <div className="text-sm text-muted-foreground mb-4">or +$19.99/year (save 40%)</div>
-              <div className="text-sm text-muted-foreground mb-4">Requires Pro plan</div>
-              <ul className="text-left space-y-3 text-sm mb-6">
+            <Card className="p-6 relative" data-testid="card-meal-ai-addon" style={{backgroundColor: '#563E2D'}}>
+              <h3 className="text-xl font-semibold mb-2 text-white">CalcuPlate</h3>
+              <div className="text-3xl font-bold mb-1 text-white">+$2.99<span className="text-base text-gray-300">/mo</span></div>
+              <div className="text-sm text-gray-300 mb-4">or +$19.99/year (save 40%)</div>
+              <div className="text-sm text-gray-300 mb-4">Requires Pro plan</div>
+              <ul className="text-left space-y-3 text-sm mb-6 text-white">
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-white mr-2 w-4 h-4" />
                   Food photo recognition
                 </li>
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-white mr-2 w-4 h-4" />
                   Automatic macros
                 </li>
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-white mr-2 w-4 h-4" />
                   Portion estimation
                 </li>
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-white mr-2 w-4 h-4" />
                   One-tap corrections
                 </li>
               </ul>
               <Button 
-                variant="outline"
-                className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                className="w-full bg-white text-black hover:bg-gray-200"
                 onClick={() => setSubscriptionModalOpen(true)}
                 data-testid="button-add-meal-ai"
               >
@@ -545,56 +544,143 @@ export default function Landing() {
         </DialogContent>
       </Dialog>
 
+      {/* App Download CTA Section */}
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl lg:text-5xl font-serif font-bold mb-6 text-white">
+            Download QuietGo Today
+          </h2>
+          <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            Start tracking your digestive health with AI-powered insights. 
+            Available on iOS and Android.
+          </p>
+          
+          {/* Large App Download Buttons */}
+          <div className="flex flex-col sm:flex-row gap-8 justify-center mb-12">
+            <Card 
+              className="flex items-center p-10 hover:shadow-2xl hover:scale-110 transition-all cursor-pointer border-4" 
+              data-testid="button-app-store-bottom"
+              style={{backgroundColor: 'rgb(60, 60, 60)', borderColor: 'rgb(100, 100, 100)'}}
+            >
+              <Apple className="text-5xl mr-6 text-white" />
+              <div className="text-left">
+                <div className="text-base font-medium text-gray-300">Download on the</div>
+                <div className="text-2xl font-bold text-white">App Store</div>
+              </div>
+            </Card>
+            
+            <Card 
+              className="flex items-center p-10 hover:shadow-2xl hover:scale-110 transition-all cursor-pointer border-4" 
+              data-testid="button-play-store-bottom"
+              style={{backgroundColor: 'rgb(60, 60, 60)', borderColor: 'rgb(100, 100, 100)'}}
+            >
+              <Play className="text-5xl mr-6 text-white fill-current" />
+              <div className="text-left">
+                <div className="text-base font-medium text-gray-300">Get it on</div>
+                <div className="text-2xl font-bold text-white">Google Play</div>
+              </div>
+            </Card>
+          </div>
+          
+          {/* App Benefits */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{backgroundColor: '#563E2D'}}>
+                <Camera className="text-white text-2xl" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">AI Photo Analysis</h3>
+              <p className="text-gray-400 text-sm">Instant health insights from photos</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{backgroundColor: '#563E2D'}}>
+                <Shield className="text-white text-2xl" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">100% Private</h3>
+              <p className="text-gray-400 text-sm">Your data stays on your device</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{backgroundColor: '#563E2D'}}>
+                <TrendingUp className="text-white text-2xl" />
+              </div>
+              <h3 className="text-lg font-semibold text-white mb-2">Pattern Recognition</h3>
+              <p className="text-gray-400 text-sm">Discover your health patterns</p>
+            </div>
+          </div>
+          
+          {/* Secondary CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg" 
+              className="px-8 py-6 text-lg" 
+              style={{backgroundColor: '#563E2D', color: 'white'}}
+              onClick={handleGetStarted}
+              data-testid="button-start-free-bottom"
+            >
+              Start Free Trial
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="px-8 py-6 text-lg border-gray-600 text-gray-300 hover:bg-gray-800"
+              onClick={() => scrollToSection('pricing')}
+              data-testid="button-view-pricing-bottom"
+            >
+              View Pricing Plans
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-foreground text-background py-12">
+      <footer className="bg-background text-foreground py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-4">
                 <img src={logoGraphic} alt="QuietGo Logo" className="w-8 h-8 mr-3" />
-                <QuietGoBrand size="md" className="text-background" />
+                <QuietGoBrand size="md" className="text-foreground" />
               </div>
-              <p className="text-sm text-background/70 leading-relaxed">
+              <p className="text-sm text-foreground/70 leading-relaxed">
                 Discreet health tracking with AI-powered insights. Plate to pattern.
               </p>
             </div>
             
             <div>
               <h3 className="font-semibold mb-3">Product</h3>
-              <ul className="space-y-2 text-sm text-background/70">
-                <li><button onClick={() => scrollToSection('features')} className="hover:text-background transition-colors" data-testid="link-features-footer">Features</button></li>
-                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-background transition-colors" data-testid="link-pricing-footer">Pricing</button></li>
-                <li><Link href="/about" className="hover:text-background transition-colors" data-testid="link-about">About</Link></li>
-                <li><Link href="/contact" className="hover:text-background transition-colors" data-testid="link-contact">Contact</Link></li>
+              <ul className="space-y-2 text-sm text-foreground/70">
+                <li><button onClick={() => scrollToSection('features')} className="hover:text-foreground transition-colors" data-testid="link-features-footer">Features</button></li>
+                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-foreground transition-colors" data-testid="link-pricing-footer">Pricing</button></li>
+                <li><Link href="/about" className="hover:text-foreground transition-colors" data-testid="link-about">About</Link></li>
+                <li><Link href="/contact" className="hover:text-foreground transition-colors" data-testid="link-contact">Contact</Link></li>
               </ul>
             </div>
             
             <div>
               <h3 className="font-semibold mb-3">Legal</h3>
-              <ul className="space-y-2 text-sm text-background/70">
-                <li><Link href="/legal" className="hover:text-background transition-colors" data-testid="link-legal">Terms & Privacy</Link></li>
-                <li><button onClick={() => scrollToSection('privacy')} className="hover:text-background transition-colors" data-testid="link-privacy-section">Data Protection</button></li>
-                <li><a href="#" className="hover:text-background transition-colors">HIPAA Notice</a></li>
+              <ul className="space-y-2 text-sm text-foreground/70">
+                <li><Link href="/legal" className="hover:text-foreground transition-colors" data-testid="link-legal">Terms & Privacy</Link></li>
+                <li><button onClick={() => scrollToSection('privacy')} className="hover:text-foreground transition-colors" data-testid="link-privacy-section">Data Protection</button></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">HIPAA Notice</a></li>
               </ul>
             </div>
             
             <div>
               <h3 className="font-semibold mb-3">Support</h3>
-              <ul className="space-y-2 text-sm text-background/70">
-                <li><Link href="/about" className="hover:text-background transition-colors" data-testid="link-about-footer">About QuietGo</Link></li>
-                <li><Link href="/contact" className="hover:text-background transition-colors" data-testid="link-contact-footer">Contact Us</Link></li>
-                <li><a href="#" className="hover:text-background transition-colors">Health Resources</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Healthcare Providers</a></li>
+              <ul className="space-y-2 text-sm text-foreground/70">
+                <li><Link href="/about" className="hover:text-foreground transition-colors" data-testid="link-about-footer">About QuietGo</Link></li>
+                <li><Link href="/contact" className="hover:text-foreground transition-colors" data-testid="link-contact-footer">Contact Us</Link></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Health Resources</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Healthcare Providers</a></li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t border-background/20 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between">
-            <p className="text-sm text-background/70">© 2024 QuietGo. All rights reserved.</p>
+          <div className="border-t border-foreground/20 mt-8 pt-8 flex flex-col md:flex-row items-center justify-between">
+            <p className="text-sm text-foreground/70">© 2024 QuietGo. All rights reserved.</p>
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <span className="text-sm text-background/70">Not medical advice</span>
-              <span className="text-background/40">•</span>
-              <span className="text-sm text-background/70">General wellness only</span>
+              <span className="text-sm text-foreground/70">Not medical advice</span>
+              <span className="text-foreground/40">•</span>
+              <span className="text-sm text-foreground/70">General wellness only</span>
             </div>
           </div>
         </div>
