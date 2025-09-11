@@ -52,9 +52,9 @@ export default function Landing() {
   };
 
   return (
-    <div className="bg-foreground text-background font-sans antialiased">
+    <div className="bg-background text-foreground font-sans antialiased">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-foreground text-background border-b border-border">
+      <nav className="sticky top-0 z-50 bg-background text-foreground border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -71,21 +71,21 @@ export default function Landing() {
               <div className="flex items-center space-x-8">
                 <button 
                   onClick={() => scrollToSection('features')} 
-                  className="text-background/70 hover:text-background transition-colors"
+                  className="text-foreground/70 hover:text-foreground transition-colors"
                   data-testid="link-features"
                 >
                   Features
                 </button>
                 <button 
                   onClick={() => scrollToSection('pricing')} 
-                  className="text-background/70 hover:text-background transition-colors"
+                  className="text-foreground/70 hover:text-foreground transition-colors"
                   data-testid="link-pricing"
                 >
                   Pricing
                 </button>
                 <Link 
                   href="/legal"
-                  className="text-background/70 hover:text-background transition-colors"
+                  className="text-foreground/70 hover:text-foreground transition-colors"
                   data-testid="link-privacy"
                 >
                   Privacy
@@ -121,19 +121,19 @@ export default function Landing() {
               <div className="flex flex-col space-y-4">
                 <button 
                   onClick={() => scrollToSection('features')} 
-                  className="text-left text-background/70 hover:text-background transition-colors"
+                  className="text-left text-foreground/70 hover:text-foreground transition-colors"
                 >
                   Features
                 </button>
                 <button 
                   onClick={() => scrollToSection('pricing')} 
-                  className="text-left text-background/70 hover:text-background transition-colors"
+                  className="text-left text-foreground/70 hover:text-foreground transition-colors"
                 >
                   Pricing
                 </button>
                 <Link 
                   href="/legal"
-                  className="text-left text-background/70 hover:text-background transition-colors"
+                  className="text-left text-foreground/70 hover:text-foreground transition-colors"
                 >
                   Privacy
                 </Link>
@@ -150,7 +150,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="bg-foreground text-background py-4 lg:py-6">
+      <section className="bg-background text-foreground py-4 lg:py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* QuietGo Company Logo - Top and Centered */}
           <div className="mb-8">
@@ -158,17 +158,17 @@ export default function Landing() {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6 text-background">
+          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6 text-foreground">
             Your gut talks.<br />
             <QuietGoBrand size="xl" className="inline text-4xl lg:text-6xl" /> translates.
           </h1>
           
-          <p className="text-xl lg:text-2xl text-background/70 mb-12 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl lg:text-2xl text-foreground/70 mb-12 leading-relaxed max-w-3xl mx-auto">
             Capture the moment. Connect the dots. Act with confidence.
           </p>
           
           {/* We Believe Statement */}
-          <p className="text-lg text-background/70 mb-12 leading-relaxed max-w-4xl mx-auto">
+          <p className="text-lg text-foreground/70 mb-12 leading-relaxed max-w-4xl mx-auto">
             We believe digestive health insights should be private, actionable, and designed for real life. 
             No social features, no judgment—just patterns that help you understand your body better.
           </p>
@@ -200,7 +200,7 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 bg-foreground text-background">
+      <section id="features" className="py-20 bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Snap it. Understand it. Build a routine.</h2>
@@ -298,7 +298,7 @@ export default function Landing() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-foreground text-background">
+      <section id="pricing" className="py-20 bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Simple, transparent pricing</h2>
           <p className="text-lg text-muted-foreground mb-12">Start free, upgrade when you're ready for deeper insights</p>
@@ -413,7 +413,7 @@ export default function Landing() {
       </section>
 
       {/* Privacy & Security */}
-      <section id="privacy" className="py-20 bg-foreground text-background">
+      <section id="privacy" className="py-20 bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Your privacy, our priority</h2>
