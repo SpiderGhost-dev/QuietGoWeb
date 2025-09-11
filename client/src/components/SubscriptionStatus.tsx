@@ -47,7 +47,7 @@ export function SubscriptionStatus({ user }: SubscriptionStatusProps) {
       {hasMealAi && (
         <Badge variant="outline" className="text-accent border-accent" data-testid="badge-meal-ai">
           <Utensils className="w-3 h-3 mr-1" />
-          Meal AI
+          CalcuPlate
         </Badge>
       )}
 

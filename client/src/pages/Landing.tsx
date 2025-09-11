@@ -83,19 +83,19 @@ export default function Landing() {
                 >
                   Pricing
                 </button>
-                <button 
-                  onClick={() => scrollToSection('privacy')} 
+                <Link 
+                  href="/legal"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   data-testid="link-privacy"
                 >
                   Privacy
-                </button>
+                </Link>
                 <Button 
                   variant="ghost" 
                   onClick={handleLogin}
                   data-testid="button-signin"
                 >
-                  Subscriber Portal
+                  QuietGo Hub
                 </Button>
                 <Button onClick={handleGetStarted} data-testid="button-get-started">
                   Get Started
@@ -131,14 +131,14 @@ export default function Landing() {
                 >
                   Pricing
                 </button>
-                <button 
-                  onClick={() => scrollToSection('privacy')} 
+                <Link 
+                  href="/legal"
                   className="text-left text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Privacy
-                </button>
+                </Link>
                 <Button variant="ghost" className="justify-start" onClick={handleLogin}>
-                  Subscriber Portal
+                  QuietGo Hub
                 </Button>
                 <Button className="justify-start" onClick={handleGetStarted}>
                   Get Started
@@ -150,7 +150,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-gradient py-8 lg:py-12">
+      <section className="hero-gradient py-4 lg:py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* QuietGo Company Logo - Top and Centered */}
           <div className="mb-8">
@@ -371,9 +371,9 @@ export default function Landing() {
               </Button>
             </Card>
 
-            {/* Meal AI Add-on */}
+            {/* CalcuPlate Add-on */}
             <Card className="p-6 relative" data-testid="card-meal-ai-addon">
-              <h3 className="text-xl font-semibold mb-2">Meal AI</h3>
+              <h3 className="text-xl font-semibold mb-2">CalcuPlate</h3>
               <div className="text-3xl font-bold mb-1">+$2.99<span className="text-base text-muted-foreground">/mo</span></div>
               <div className="text-sm text-muted-foreground mb-4">or +$19.99/year (save 40%)</div>
               <div className="text-sm text-muted-foreground mb-4">Requires Pro plan</div>
@@ -401,7 +401,7 @@ export default function Landing() {
                 onClick={() => setSubscriptionModalOpen(true)}
                 data-testid="button-add-meal-ai"
               >
-                Add Meal AI
+                Add CalcuPlate
               </Button>
             </Card>
           </div>

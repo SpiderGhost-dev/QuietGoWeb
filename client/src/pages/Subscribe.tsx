@@ -184,7 +184,7 @@ export default function Subscribe() {
             <h2 className="text-2xl font-serif font-bold mb-2">You're already subscribed!</h2>
             <p className="text-muted-foreground mb-6">
               You have access to all Pro features. 
-              {user?.mealAiAddon && " You also have the Meal AI add-on enabled."}
+              {user?.mealAiAddon && " You also have the CalcuPlate add-on enabled."}
             </p>
             <Link href="/dashboard">
               <Button data-testid="button-go-dashboard">
@@ -220,13 +220,13 @@ export default function Subscribe() {
       badge: "Save 33%",
     },
     meal_ai_addon: {
-      name: "Meal AI Add-on",
+      name: "CalcuPlate Add-on",
       price: "+$2.99",
       period: "/month",
       description: "Requires Pro subscription",
     },
     meal_ai_yearly: {
-      name: "Meal AI Yearly",
+      name: "CalcuPlate Yearly",
       price: "+$19.99",
       period: "/year",
       description: "Requires Pro subscription - save 40%",
@@ -276,8 +276,8 @@ export default function Subscribe() {
                   Yearly
                   <Badge variant="secondary" className="ml-2">33% off</Badge>
                 </TabsTrigger>
-                <TabsTrigger value="meal_ai_addon" data-testid="tab-meal-ai">Meal AI</TabsTrigger>
-                <TabsTrigger value="meal_ai_yearly" data-testid="tab-meal-ai-yearly">Meal AI Yearly</TabsTrigger>
+                <TabsTrigger value="meal_ai_addon" data-testid="tab-meal-ai">CalcuPlate</TabsTrigger>
+                <TabsTrigger value="meal_ai_yearly" data-testid="tab-meal-ai-yearly">CalcuPlate Yearly</TabsTrigger>
               </TabsList>
 
               {Object.entries(planDetails).map(([key, plan]) => (

@@ -135,7 +135,7 @@ export default function Legal() {
                 <ul className="text-muted-foreground space-y-2 text-sm">
                   <li>• Free plan: Manual logging with basic features</li>
                   <li>• Pro plan: AI analysis, advanced patterns, unlimited history</li>
-                  <li>• Meal AI add-on: Photo-based food recognition</li>
+                  <li>• CalcuPlate add-on: Photo-based food recognition</li>
                   <li>• All subscriptions managed through Apple App Store</li>
                 </ul>
               </Card>
@@ -465,12 +465,11 @@ export default function Legal() {
             </p>
             <div className="space-y-3">
               <div className="text-lg font-mono">Support@QuietGo.app</div>
-              <Button 
-                onClick={() => window.location.href = 'mailto:Support@QuietGo.app?subject=Legal or Privacy Question'}
-                data-testid="button-legal-contact"
-              >
-                Contact Support
-              </Button>
+              <Link href="/contact">
+                <Button data-testid="button-legal-contact">
+                  Contact Support
+                </Button>
+              </Link>
             </div>
           </div>
         </Card>

@@ -330,7 +330,7 @@ export function PatternVisualization({ healthLogs, patterns, isLoading }: Patter
                     </span>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Enable Meal AI add-on for detailed macro tracking
+                    Enable CalcuPlate add-on for detailed macro tracking
                   </div>
                 </div>
               </div>
