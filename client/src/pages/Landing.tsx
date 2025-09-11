@@ -158,9 +158,9 @@ export default function Landing() {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
+          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6 text-primary">
             Your gut talks.<br />
-            <QuietGoBrand size="xl" className="inline text-4xl lg:text-6xl" /> translates.
+            <span className="text-primary">QuietGo</span> translates.
           </h1>
           
           <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -551,10 +551,8 @@ export default function Landing() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-4">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                  <Sprout className="text-primary-foreground text-sm" />
-                </div>
-                <span className="text-lg font-serif font-semibold">QuietGo</span>
+                <img src={logoGraphic} alt="QuietGo Logo" className="w-8 h-8 mr-3" />
+                <QuietGoBrand size="md" className="text-background" />
               </div>
               <p className="text-sm text-background/70 leading-relaxed">
                 Discreet health tracking with AI-powered insights. Plate to pattern.

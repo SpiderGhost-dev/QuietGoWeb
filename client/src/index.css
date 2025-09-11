@@ -4,18 +4,18 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(60 56% 91%); /* Cream #F5F5DC */
-  --foreground: hsl(210 10% 18%);
-  --card: hsl(60 56% 96%);
+  --background: hsl(60 40% 88%); /* Richer Cream */
+  --foreground: hsl(210 15% 15%); /* Darker foreground */
+  --card: hsl(60 45% 92%); /* Richer card background */
   --card-foreground: hsl(210 10% 18%);
   --popover: hsl(60 56% 96%);
   --popover-foreground: hsl(210 10% 18%);
-  --primary: hsl(94 25% 44%); /* Sage 500 #6C985F */
+  --primary: hsl(94 35% 38%); /* Darker Sage */
   --primary-foreground: hsl(60 56% 96%);
   --secondary: hsl(19 31% 73%); /* Logo Rose #D4A799 */
   --secondary-foreground: hsl(210 10% 18%);
-  --muted: hsl(60 30% 85%);
-  --muted-foreground: hsl(210 5% 45%);
+  --muted: hsl(60 35% 78%); /* Richer muted */
+  --muted-foreground: hsl(210 8% 40%); /* Darker muted text */
   --accent: hsl(19 31% 73%); /* Logo Rose #D4A799 */
   --accent-foreground: hsl(60 56% 96%);
   --destructive: hsl(0 65% 50%);
@@ -99,7 +99,7 @@
 
 /* Custom styles for QuietGo branding */
 .hero-gradient {
-  background: linear-gradient(135deg, hsl(94 30% 95%) 0%, hsl(60 56% 95%) 50%, hsl(19 35% 90%) 100%);
+  background: linear-gradient(135deg, hsl(94 40% 88%) 0%, hsl(60 45% 90%) 50%, hsl(19 40% 85%) 100%);
 }
 
 .dark .hero-gradient {
