@@ -160,7 +160,7 @@ export default function Landing() {
           {/* Main Headline */}
           <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
             Your gut talks.<br />
-            <span className="text-primary">QuietGo translates.</span>
+            <QuietGoBrand size="xl" className="inline" /> translates.
           </h1>
           
           <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -173,22 +173,22 @@ export default function Landing() {
             No social features, no judgment—just patterns that help you understand your body better.
           </p>
           
-          {/* App Download Buttons - Better CTA */}
+          {/* App Download Buttons - Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             {/* iOS App Store mockup button */}
-            <Card className="flex items-center p-6 hover:shadow-lg transition-all cursor-pointer bg-card/80 backdrop-blur" data-testid="button-app-store">
-              <Apple className="text-3xl mr-4" />
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-primary/10 backdrop-blur border-2 border-primary/20 hover:border-primary/40" data-testid="button-app-store">
+              <Apple className="text-4xl mr-5 text-primary" />
               <div className="text-left">
-                <div className="text-sm text-muted-foreground">Download on the</div>
-                <div className="text-lg font-semibold">App Store</div>
+                <div className="text-sm text-muted-foreground font-medium">Download on the</div>
+                <div className="text-xl font-bold text-foreground">App Store</div>
               </div>
             </Card>
             {/* Google Play Store mockup button */}
-            <Card className="flex items-center p-6 hover:shadow-lg transition-all cursor-pointer bg-card/80 backdrop-blur" data-testid="button-play-store">
-              <Play className="text-3xl mr-4 text-primary fill-current" />
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-secondary/10 backdrop-blur border-2 border-secondary/20 hover:border-secondary/40" data-testid="button-play-store">
+              <Play className="text-4xl mr-5 text-secondary fill-current" />
               <div className="text-left">
-                <div className="text-sm text-muted-foreground">Get it on</div>
-                <div className="text-lg font-semibold">Google Play</div>
+                <div className="text-sm text-muted-foreground font-medium">Get it on</div>
+                <div className="text-xl font-bold text-foreground">Google Play</div>
               </div>
             </Card>
           </div>

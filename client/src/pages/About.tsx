@@ -43,8 +43,8 @@ export default function About() {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-serif font-bold leading-tight mb-6">
-            Your gut talks.<br />
-            <span className="text-primary"><QuietGoBrand size="lg" className="inline" /> translates.</span>
+            Understanding Your Digestive Health<br />
+            <span className="text-primary">The Private Way</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             We believe digestive health insights should be private, actionable, and designed for real life. 
