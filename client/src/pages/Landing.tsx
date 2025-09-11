@@ -151,44 +151,50 @@ export default function Landing() {
 
       {/* Hero Section */}
       <section className="hero-gradient py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="max-w-lg">
-              <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
-                Snap it.<br />
-                <span className="text-primary">Understand it.</span><br />
-                Build a routine.
-              </h1>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                AI-powered stool and meal tracking that reveals patterns in your health. 
-                Discreet, private, and designed for real insights.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                {/* iOS App Store mockup button */}
-                <Card className="flex items-center p-4 hover:shadow-lg transition-all cursor-pointer" data-testid="button-app-store">
-                  <Apple className="text-2xl mr-3" />
-                  <div className="text-left">
-                    <div className="text-xs text-muted-foreground">Download on the</div>
-                    <div className="text-sm font-semibold">App Store</div>
-                  </div>
-                </Card>
-                {/* Google Play Store mockup button */}
-                <Card className="flex items-center p-4 hover:shadow-lg transition-all cursor-pointer" data-testid="button-play-store">
-                  <Play className="text-2xl mr-3 text-primary fill-current" />
-                  <div className="text-left">
-                    <div className="text-xs text-muted-foreground">Get it on</div>
-                    <div className="text-sm font-semibold">Google Play</div>
-                  </div>
-                </Card>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          {/* QuietGo Company Logo - Top and Centered */}
+          <div className="mb-8">
+            <img src={heroLogo} alt="QuietGo" className="mx-auto max-w-md lg:max-w-lg" />
+          </div>
+          
+          {/* Main Headline */}
+          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
+            Your gut talks.<br />
+            <span className="text-primary">QuietGo translates.</span>
+          </h1>
+          
+          <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
+            Capture the moment. Connect the dots. Act with confidence.
+          </p>
+          
+          {/* We Believe Statement */}
+          <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-4xl mx-auto">
+            We believe digestive health insights should be private, actionable, and designed for real life. 
+            No social features, no judgment—just patterns that help you understand your body better.
+          </p>
+          
+          {/* App Download Buttons - Better CTA */}
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+            {/* iOS App Store mockup button */}
+            <Card className="flex items-center p-6 hover:shadow-lg transition-all cursor-pointer bg-card/80 backdrop-blur" data-testid="button-app-store">
+              <Apple className="text-3xl mr-4" />
+              <div className="text-left">
+                <div className="text-sm text-muted-foreground">Download on the</div>
+                <div className="text-lg font-semibold">App Store</div>
               </div>
-              <div className="text-sm text-muted-foreground">
-                ✨ Free to try • 🔒 Privacy-first • 📊 AI-powered insights
+            </Card>
+            {/* Google Play Store mockup button */}
+            <Card className="flex items-center p-6 hover:shadow-lg transition-all cursor-pointer bg-card/80 backdrop-blur" data-testid="button-play-store">
+              <Play className="text-3xl mr-4 text-primary fill-current" />
+              <div className="text-left">
+                <div className="text-sm text-muted-foreground">Get it on</div>
+                <div className="text-lg font-semibold">Google Play</div>
               </div>
-            </div>
-            <div className="relative flex items-center justify-center">
-              {/* QuietGo Company Logo */}
-              <img src={heroLogo} alt="QuietGo" className="w-full h-auto max-w-lg" />
-            </div>
+            </Card>
+          </div>
+          
+          <div className="text-lg text-muted-foreground">
+            ✨ Free to try • 🔒 Privacy-first • 📊 AI-powered insights
           </div>
         </div>
       </section>
@@ -197,9 +203,9 @@ export default function Landing() {
       <section id="features" className="py-20 bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Designed for discretion and insight</h2>
+            <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Snap it. Understand it. Build a routine.</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Advanced AI meets thoughtful privacy to help you understand your body's patterns.
+              AI-powered stool and meal tracking that reveals patterns in your health. Discreet, private, and designed for real insights.
             </p>
           </div>
           
@@ -468,32 +474,6 @@ export default function Landing() {
             </div>
           </div>
           
-          <Card className="mt-12 p-6 bg-background border border-border">
-            <div className="flex items-center mb-3">
-              <Download className="text-primary mr-3" />
-              <h4 className="text-lg font-semibold">Data Export & Account Management</h4>
-            </div>
-            <p className="text-muted-foreground mb-4">
-              Access all your health data in standard formats. Sync across devices or take it with you if you leave.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button 
-                onClick={handleLogin}
-                data-testid="button-export-data"
-              >
-                <Download className="mr-2 w-4 h-4" />
-                Export My Data
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={handleLogin}
-                data-testid="button-privacy-settings"
-              >
-                <Settings className="mr-2 w-4 h-4" />
-                Privacy Settings
-              </Button>
-            </div>
-          </Card>
         </div>
       </section>
 
