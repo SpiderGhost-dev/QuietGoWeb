@@ -102,6 +102,10 @@
   background: linear-gradient(135deg, hsl(94 30% 95%) 0%, hsl(60 56% 95%) 50%, hsl(19 35% 90%) 100%);
 }
 
+.dark .hero-gradient {
+  background: linear-gradient(135deg, hsl(210 10% 18%) 0%, hsl(210 8% 22%) 50%, hsl(210 6% 25%) 100%);
+}
+
 /* QuietGo Brand Name Styling */
 .quietgo-brand .quiet {
   color: hsl(94 25% 44%); /* Sage 500 #6C985F */

@@ -185,13 +185,9 @@ export default function Landing() {
                 ✨ Free to try • 🔒 Privacy-first • 📊 AI-powered insights
               </div>
             </div>
-            <div className="relative">
+            <div className="relative flex items-center justify-center">
               {/* QuietGo Company Logo */}
-              <div className="app-preview-shadow rounded-2xl mx-auto max-w-sm bg-gradient-to-br from-background to-card p-8 border border-border">
-                <div className="flex items-center justify-center h-full">
-                  <img src={heroLogo} alt="QuietGo" className="w-full h-auto max-w-xs" />
-                </div>
-              </div>
+              <img src={heroLogo} alt="QuietGo" className="w-full h-auto max-w-lg" />
             </div>
           </div>
         </div>
