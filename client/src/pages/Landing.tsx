@@ -54,7 +54,7 @@ export default function Landing() {
   return (
     <div className="bg-background text-foreground font-sans antialiased">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background border-b border-border">
+      <nav className="sticky top-0 z-50 bg-foreground text-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -71,21 +71,21 @@ export default function Landing() {
               <div className="flex items-center space-x-8">
                 <button 
                   onClick={() => scrollToSection('features')} 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-background/70 hover:text-background transition-colors"
                   data-testid="link-features"
                 >
                   Features
                 </button>
                 <button 
                   onClick={() => scrollToSection('pricing')} 
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-background/70 hover:text-background transition-colors"
                   data-testid="link-pricing"
                 >
                   Pricing
                 </button>
                 <Link 
                   href="/legal"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-background/70 hover:text-background transition-colors"
                   data-testid="link-privacy"
                 >
                   Privacy
@@ -121,19 +121,19 @@ export default function Landing() {
               <div className="flex flex-col space-y-4">
                 <button 
                   onClick={() => scrollToSection('features')} 
-                  className="text-left text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-left text-background/70 hover:text-background transition-colors"
                 >
                   Features
                 </button>
                 <button 
                   onClick={() => scrollToSection('pricing')} 
-                  className="text-left text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-left text-background/70 hover:text-background transition-colors"
                 >
                   Pricing
                 </button>
                 <Link 
                   href="/legal"
-                  className="text-left text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-left text-background/70 hover:text-background transition-colors"
                 >
                   Privacy
                 </Link>
@@ -413,7 +413,7 @@ export default function Landing() {
       </section>
 
       {/* Privacy & Security */}
-      <section id="privacy" className="py-20 bg-card">
+      <section id="privacy" className="py-20 bg-foreground text-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-serif font-bold mb-4">Your privacy, our priority</h2>

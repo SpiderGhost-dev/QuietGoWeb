@@ -108,19 +108,19 @@
 
 /* QuietGo Brand Name Styling */
 .quietgo-brand .quiet {
-  color: hsl(120, 10%, 58%); /* #899c89 */
+  color: #ded6c6;
 }
 
 .quietgo-brand .go {
-  color: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
+  color: #cd958a;
 }
 
 .dark .quietgo-brand .quiet {
-  color: hsl(120, 15%, 65%); /* Lighter #899c89 for dark mode */
+  color: #ded6c6;
 }
 
 .dark .quietgo-brand .go {
-  color: hsl(204, 40%, 55%); /* Lighter Kashmir Blue for dark mode */
+  color: #cd958a;
 }
 
 .pattern-viz {
