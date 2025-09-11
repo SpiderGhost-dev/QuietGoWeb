@@ -157,13 +157,15 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getPatterns(userId: string, type?: string): Promise<Pattern[]> {
-    let query = db.select().from(patterns).where(eq(patterns.userId, userId));
+    const whereConditions = type 
+      ? and(eq(patterns.userId, userId), eq(patterns.type, type))
+      : eq(patterns.userId, userId);
     
-    if (type) {
-      query = query.where(and(eq(patterns.userId, userId), eq(patterns.type, type)));
-    }
-
-    return await query.orderBy(desc(patterns.createdAt));
+    return await db
+      .select()
+      .from(patterns)
+      .where(whereConditions)
+      .orderBy(desc(patterns.createdAt));
   }
 
   // Shared access operations

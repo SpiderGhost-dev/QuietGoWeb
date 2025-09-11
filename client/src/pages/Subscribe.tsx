@@ -182,7 +182,7 @@ export default function Subscribe() {
             <h2 className="text-2xl font-serif font-bold mb-2">You're already subscribed!</h2>
             <p className="text-muted-foreground mb-6">
               You have access to all Pro features. 
-              {user.mealAiAddon && " You also have the Meal AI add-on enabled."}
+              {user?.mealAiAddon && " You also have the Meal AI add-on enabled."}
             </p>
             <Link href="/dashboard">
               <Button data-testid="button-go-dashboard">
@@ -195,7 +195,15 @@ export default function Subscribe() {
     );
   }
 
-  const planDetails = {
+  interface PlanDetail {
+    name: string;
+    price: string;
+    period: string;
+    description: string;
+    badge?: string;
+  }
+
+  const planDetails: Record<string, PlanDetail> = {
     pro_monthly: {
       name: "Pro Monthly",
       price: "$4.99",

@@ -6,15 +6,15 @@ import fs from "fs/promises";
 import Stripe from "stripe";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
-import { analyzeStoolPhoto, analyzeMealPhoto } from "./openai";
+import { analyzeStoolPhoto, analyzeMealPhoto } from "./openai.js";
 import { insertHealthLogSchema, insertFileUploadSchema } from "@shared/schema";
 import { z } from "zod";
 
 // Stripe setup
 const stripeKey = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder_key_for_development';
 const stripe = new Stripe(stripeKey, {
-  apiVersion: "2025-08-27.basil",
-});
+  apiVersion: "2024-06-20",
+} as any);
 
 // Multer setup for file uploads
 const upload = multer({
@@ -242,7 +242,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           return res.json({
             subscriptionId: subscription.id,
-            clientSecret: (invoice.payment_intent as any)?.client_secret,
+            clientSecret: (invoice as any).payment_intent?.client_secret,
           });
         }
       }
@@ -287,7 +287,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         stripeSubscriptionId: subscription.id,
         subscriptionStatus: subscription.status,
         subscriptionPlan: plan,
-        mealAiAddon: plan === 'meal_ai_addon' || user.mealAiAddon,
+        mealAiAddon: plan === 'meal_ai_addon' || Boolean(user.mealAiAddon),
       });
 
       const invoice = subscription.latest_invoice as any;
@@ -365,7 +365,8 @@ async function processDataImport(filePath: string, uploadId: string, userId: str
     await fs.unlink(filePath);
   } catch (error) {
     console.error("Error processing data import:", error);
-    await storage.updateFileUploadProcessed(uploadId, { error: error.message });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    await storage.updateFileUploadProcessed(uploadId, { error: errorMessage });
   }
 }
 
@@ -384,7 +385,8 @@ async function processImageAnalysis(filePath: string, uploadId: string, userId: 
     await fs.unlink(filePath);
   } catch (error) {
     console.error("Error processing image analysis:", error);
-    await storage.updateFileUploadProcessed(uploadId, { error: error.message });
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    await storage.updateFileUploadProcessed(uploadId, { error: errorMessage });
   }
 }
 

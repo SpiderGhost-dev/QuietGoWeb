@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import type { HealthLog, FileUpload, Pattern } from "@shared/schema";
 import { useAuth } from "@/hooks/useAuth";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import { useToast } from "@/hooks/use-toast";
@@ -47,21 +48,21 @@ export default function Dashboard() {
   }, [isAuthenticated, isLoading, toast]);
 
   // Fetch health logs
-  const { data: healthLogs = [], isLoading: logsLoading } = useQuery({
+  const { data: healthLogs = [], isLoading: logsLoading } = useQuery<HealthLog[]>({
     queryKey: ["/api/health-logs"],
     enabled: isAuthenticated,
     retry: false,
   });
 
   // Fetch pattern analysis
-  const { data: patterns = [], isLoading: patternsLoading } = useQuery({
+  const { data: patterns = [], isLoading: patternsLoading } = useQuery<Pattern[]>({
     queryKey: ["/api/patterns"],
     enabled: isAuthenticated,
     retry: false,
   });
 
   // Fetch file uploads
-  const { data: uploads = [], isLoading: uploadsLoading } = useQuery({
+  const { data: uploads = [], isLoading: uploadsLoading } = useQuery<FileUpload[]>({
     queryKey: ["/api/uploads"],
     enabled: isAuthenticated,
     retry: false,
