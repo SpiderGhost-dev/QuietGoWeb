@@ -161,7 +161,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // AI analysis routes (requires Pro subscription or Meal AI add-on)
+  // AI analysis routes (requires Pro subscription or CalcuPlate add-on)
   app.post("/api/ai/stool-analysis", isAuthenticated, upload.single("photo"), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
@@ -197,7 +197,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const user = await storage.getUser(userId);
       
       if (!user?.mealAiAddon) {
-        return res.status(403).json({ message: "Meal AI add-on required for meal photo analysis" });
+        return res.status(403).json({ message: "CalcuPlate add-on required for meal photo analysis" });
       }
 
       const file = req.file as Express.Multer.File;
