@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { FileUpload } from "@/components/ui/file-upload";
+import { QuietGoBrand } from "@/components/QuietGoBrand";
 import { 
   CloudUpload, 
   FileText, 
@@ -140,7 +141,7 @@ export function DataUpload({ uploads, isLoading }: DataUploadProps) {
             <div>
               <h4 className="text-sm font-medium mb-3">Upload Options</h4>
               <p className="text-sm text-muted-foreground mb-4">
-                Upload exported data from your QuietGo mobile app or photos for AI analysis.
+                Upload exported data from your <QuietGoBrand size="sm" className="inline" /> mobile app or photos for AI analysis.
                 Supported formats: JSON, CSV, JPG, PNG.
               </p>
             </div>
@@ -252,9 +253,9 @@ export function DataUpload({ uploads, isLoading }: DataUploadProps) {
         <CardContent>
           <div className="space-y-4">
             <div>
-              <h4 className="text-sm font-medium mb-2">From QuietGo iOS/Android:</h4>
+              <h4 className="text-sm font-medium mb-2">From <QuietGoBrand size="sm" className="inline" /> iOS/Android:</h4>
               <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-                <li>Open QuietGo mobile app</li>
+                <li>Open <QuietGoBrand size="sm" className="inline" /> mobile app</li>
                 <li>Go to Settings → Data Export</li>
                 <li>Choose export format (JSON recommended)</li>
                 <li>Share or save the exported file</li>

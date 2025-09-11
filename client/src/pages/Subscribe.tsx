@@ -19,6 +19,8 @@ import {
   ArrowLeft
 } from "lucide-react";
 import { Link } from "wouter";
+import { QuietGoBrand } from "@/components/QuietGoBrand";
+import logoGraphic from "@assets/logo-graphic_1757613896603.png";
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
@@ -219,9 +221,16 @@ export default function Subscribe() {
     },
     meal_ai_addon: {
       name: "Meal AI Add-on",
-      price: "+$9.99",
+      price: "+$2.99",
       period: "/month",
       description: "Requires Pro subscription",
+    },
+    meal_ai_yearly: {
+      name: "Meal AI Yearly",
+      price: "+$19.99",
+      period: "/year",
+      description: "Requires Pro subscription - save 40%",
+      badge: "Save 40%",
     },
   };
 
@@ -239,10 +248,8 @@ export default function Subscribe() {
                 </Button>
               </Link>
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                  <Sprout className="text-primary-foreground text-sm" />
-                </div>
-                <h1 className="text-xl font-serif font-semibold">Upgrade to Pro</h1>
+                <img src={logoGraphic} alt="QuietGo Logo" className="w-8 h-8 mr-3" />
+                <h1 className="text-xl font-serif font-semibold">Upgrade to <QuietGoBrand size="md" className="inline" /></h1>
               </div>
             </div>
           </div>
@@ -263,13 +270,14 @@ export default function Subscribe() {
             <h3 className="text-xl font-semibold mb-4">Choose Your Plan</h3>
             
             <Tabs value={selectedPlan} onValueChange={handlePlanSelect} data-testid="tabs-plan-selection">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="pro_monthly" data-testid="tab-pro-monthly">Monthly</TabsTrigger>
                 <TabsTrigger value="pro_yearly" data-testid="tab-pro-yearly">
                   Yearly
                   <Badge variant="secondary" className="ml-2">33% off</Badge>
                 </TabsTrigger>
                 <TabsTrigger value="meal_ai_addon" data-testid="tab-meal-ai">Meal AI</TabsTrigger>
+                <TabsTrigger value="meal_ai_yearly" data-testid="tab-meal-ai-yearly">Meal AI Yearly</TabsTrigger>
               </TabsList>
 
               {Object.entries(planDetails).map(([key, plan]) => (

@@ -3,7 +3,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { QuietGoBrand } from "@/components/QuietGoBrand";
 import { Sprout, BarChart3, Upload, Settings, LogOut } from "lucide-react";
+import logoGraphic from "@assets/logo-graphic_1757613896603.png";
 
 export default function Home() {
   const { user } = useAuth();
@@ -19,11 +21,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                <Sprout className="text-primary-foreground text-sm" />
-              </div>
+              <img src={logoGraphic} alt="QuietGo Logo" className="w-8 h-8 mr-3" />
               <div>
-                <span className="text-xl font-serif font-semibold">QuietGo</span>
+                <QuietGoBrand size="md" />
                 <Badge variant="outline" className="ml-2 text-xs">
                   {user?.subscriptionPlan === 'free' ? 'Free' : 'Pro'}
                 </Badge>
@@ -136,7 +136,7 @@ export default function Home() {
           <Card className="p-6">
             <h3 className="text-lg font-semibold mb-4">Download Mobile Apps</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Get the full QuietGo experience on your mobile device for easy logging and AI analysis.
+              Get the full <QuietGoBrand size="sm" className="inline" /> experience on your mobile device for easy logging and AI analysis.
             </p>
             <div className="space-y-3">
               <Button variant="outline" className="w-full justify-start" data-testid="button-ios-download">

@@ -13,6 +13,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DataUpload } from "@/components/DataUpload";
 import { PatternVisualization } from "@/components/PatternVisualization";
 import { SubscriptionStatus } from "@/components/SubscriptionStatus";
+import { QuietGoBrand } from "@/components/QuietGoBrand";
+import logoGraphic from "@assets/logo-graphic_1757613896603.png";
 import { 
   Clock, 
   TrendingUp, 
@@ -157,10 +159,8 @@ export default function Dashboard() {
                 </Button>
               </Link>
               <div className="flex items-center">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                  <Sprout className="text-primary-foreground text-sm" />
-                </div>
-                <h1 className="text-xl font-serif font-semibold">Health Dashboard</h1>
+                <img src={logoGraphic} alt="QuietGo Logo" className="w-8 h-8 mr-3" />
+                <h1 className="text-xl font-serif font-semibold"><QuietGoBrand size="md" className="inline" /> Dashboard</h1>
               </div>
             </div>
             

@@ -7,6 +7,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { QuietGoBrand } from "@/components/QuietGoBrand";
+import logoGraphic from "@assets/logo-graphic_1757613896603.png";
+import heroLogo from "@assets/logo_1757613890711.png";
 import { 
   Camera, 
   Utensils, 
@@ -55,12 +58,10 @@ export default function Landing() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center" data-testid="logo">
-                  <Sprout className="text-primary-foreground text-sm" />
-                </div>
+                <img src={logoGraphic} alt="QuietGo Logo" className="w-8 h-8" data-testid="logo" />
               </div>
               <div className="ml-3">
-                <span className="text-xl font-serif font-semibold">QuietGo</span>
+                <QuietGoBrand size="md" />
                 <span className="ml-2 text-sm text-muted-foreground">Plate to pattern</span>
               </div>
             </div>
@@ -93,7 +94,7 @@ export default function Landing() {
                   onClick={handleLogin}
                   data-testid="button-signin"
                 >
-                  Sign In
+                  Subscriber Portal
                 </Button>
                 <Button onClick={handleGetStarted} data-testid="button-get-started">
                   Get Started
@@ -136,7 +137,7 @@ export default function Landing() {
                   Privacy
                 </button>
                 <Button variant="ghost" className="justify-start" onClick={handleLogin}>
-                  Sign In
+                  Subscriber Portal
                 </Button>
                 <Button className="justify-start" onClick={handleGetStarted}>
                   Get Started
@@ -187,10 +188,8 @@ export default function Landing() {
               {/* Mockup phone showing app interface */}
               <div className="app-preview-shadow rounded-2xl mx-auto max-w-sm bg-gradient-to-br from-background to-card p-8 border border-border">
                 <div className="text-center space-y-4">
-                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
-                    <Sprout className="text-primary-foreground text-2xl" />
-                  </div>
-                  <h3 className="font-semibold text-lg">QuietGo Mobile</h3>
+                  <img src={heroLogo} alt="QuietGo Logo" className="w-16 h-16 mx-auto" />
+                  <h3 className="font-semibold text-lg"><QuietGoBrand size="lg" /> Mobile</h3>
                   <p className="text-sm text-muted-foreground">Professional health tracking interface</p>
                   <div className="space-y-2">
                     <div className="h-3 bg-muted rounded w-full"></div>
@@ -239,7 +238,7 @@ export default function Landing() {
                 Automatically detect foods, estimate portions, and calculate calories and macros with one-tap edits.
               </p>
               <Badge variant="outline" className="text-accent border-accent">
-                $9.99/mo add-on service
+                $2.99/mo add-on service
               </Badge>
             </Card>
 
@@ -379,7 +378,8 @@ export default function Landing() {
             {/* Meal AI Add-on */}
             <Card className="p-6 relative" data-testid="card-meal-ai-addon">
               <h3 className="text-xl font-semibold mb-2">Meal AI</h3>
-              <div className="text-3xl font-bold mb-1">+$9.99<span className="text-base text-muted-foreground">/mo</span></div>
+              <div className="text-3xl font-bold mb-1">+$2.99<span className="text-base text-muted-foreground">/mo</span></div>
+              <div className="text-sm text-muted-foreground mb-4">or +$19.99/year (save 40%)</div>
               <div className="text-sm text-muted-foreground mb-4">Requires Pro plan</div>
               <ul className="text-left space-y-3 text-sm mb-6">
                 <li className="flex items-center">
