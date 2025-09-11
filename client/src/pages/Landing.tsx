@@ -150,7 +150,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-gradient py-20 lg:py-32">
+      <section className="hero-gradient py-8 lg:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* QuietGo Company Logo - Top and Centered */}
           <div className="mb-8">
@@ -160,7 +160,7 @@ export default function Landing() {
           {/* Main Headline */}
           <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
             Your gut talks.<br />
-            <QuietGoBrand size="xl" className="inline" /> translates.
+            <QuietGoBrand size="xl" className="inline text-4xl lg:text-6xl" /> translates.
           </h1>
           
           <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
