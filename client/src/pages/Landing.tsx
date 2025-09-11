@@ -185,17 +185,10 @@ export default function Landing() {
               </div>
             </div>
             <div className="relative">
-              {/* Mockup phone showing app interface */}
+              {/* QuietGo Company Logo */}
               <div className="app-preview-shadow rounded-2xl mx-auto max-w-sm bg-gradient-to-br from-background to-card p-8 border border-border">
-                <div className="text-center space-y-4">
-                  <img src={heroLogo} alt="QuietGo Logo" className="w-16 h-16 mx-auto" />
-                  <h3 className="font-semibold text-lg"><QuietGoBrand size="lg" /> Mobile</h3>
-                  <p className="text-sm text-muted-foreground">Professional health tracking interface</p>
-                  <div className="space-y-2">
-                    <div className="h-3 bg-muted rounded w-full"></div>
-                    <div className="h-3 bg-muted rounded w-3/4"></div>
-                    <div className="h-3 bg-muted rounded w-5/6"></div>
-                  </div>
+                <div className="flex items-center justify-center h-full">
+                  <img src={heroLogo} alt="QuietGo" className="w-full h-auto max-w-xs" />
                 </div>
               </div>
             </div>
