@@ -4,26 +4,26 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(60 40% 88%); /* Richer Cream */
-  --foreground: hsl(210 15% 15%); /* Darker foreground */
-  --card: hsl(60 45% 92%); /* Richer card background */
+  --background: hsl(45, 28%, 90%); /* Richer Cream */
+  --foreground: hsl(210, 15%, 12%); /* Darker foreground */
+  --card: hsl(45, 24%, 88%); /* Richer card background */
   --card-foreground: hsl(210 10% 18%);
   --popover: hsl(60 56% 96%);
   --popover-foreground: hsl(210 10% 18%);
-  --primary: hsl(94 35% 38%); /* Darker Sage */
+  --primary: hsl(98, 22%, 55%); /* Soft Sage */
   --primary-foreground: hsl(60 56% 96%);
   --secondary: hsl(19 31% 73%); /* Logo Rose #D4A799 */
   --secondary-foreground: hsl(210 10% 18%);
   --muted: hsl(60 35% 78%); /* Richer muted */
-  --muted-foreground: hsl(210 8% 40%); /* Darker muted text */
+  --muted-foreground: hsl(210, 8%, 35%); /* Darker muted text */
   --accent: hsl(19 31% 73%); /* Logo Rose #D4A799 */
   --accent-foreground: hsl(60 56% 96%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(60 56% 96%);
   --border: hsl(60 30% 80%);
   --input: hsl(60 30% 80%);
-  --ring: hsl(94 25% 44%); /* Sage 500 #6C985F */
-  --chart-1: hsl(94 25% 44%); /* Sage 500 #6C985F */
+  --ring: hsl(98, 22%, 42%); /* Soft sage ring */
+  --chart-1: hsl(98, 22%, 55%); /* Soft sage chart */
   --chart-2: hsl(19 31% 73%); /* Logo Rose #D4A799 */
   --chart-3: hsl(223 24% 51%); /* Slate Blue #6A7BA2 */
   --chart-4: hsl(206 51% 54%); /* Steel Blue #4682B4 */
@@ -99,7 +99,7 @@
 
 /* Custom styles for QuietGo branding */
 .hero-gradient {
-  background: linear-gradient(135deg, hsl(94 40% 88%) 0%, hsl(60 45% 90%) 50%, hsl(19 40% 85%) 100%);
+  background: linear-gradient(135deg, hsl(98, 25%, 92%) 0%, hsl(45, 30%, 92%) 50%, hsl(19, 30%, 88%) 100%);
 }
 
 .dark .hero-gradient {

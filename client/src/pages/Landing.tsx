@@ -54,7 +54,7 @@ export default function Landing() {
   return (
     <div className="bg-background text-foreground font-sans antialiased">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <nav className="sticky top-0 z-50 bg-background border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -95,7 +95,7 @@ export default function Landing() {
                   onClick={handleLogin}
                   data-testid="button-signin"
                 >
-                  QuietGo Hub
+                  <QuietGoBrand size="sm" className="inline" /> Hub
                 </Button>
                 <Button onClick={handleGetStarted} data-testid="button-get-started">
                   Get Started
@@ -138,7 +138,7 @@ export default function Landing() {
                   Privacy
                 </Link>
                 <Button variant="ghost" className="justify-start" onClick={handleLogin}>
-                  QuietGo Hub
+                  <QuietGoBrand size="sm" className="inline" /> Hub
                 </Button>
                 <Button className="justify-start" onClick={handleGetStarted}>
                   Get Started
@@ -158,9 +158,9 @@ export default function Landing() {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6 text-primary">
+          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
             Your gut talks.<br />
-            <span className="text-primary">QuietGo</span> translates.
+            <QuietGoBrand size="xl" className="inline text-4xl lg:text-6xl" /> translates.
           </h1>
           
           <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
@@ -176,7 +176,7 @@ export default function Landing() {
           {/* App Download Buttons - Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             {/* iOS App Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-primary/10 backdrop-blur border-2 border-primary/20 hover:border-primary/40" data-testid="button-app-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card border-2 border-primary/30 hover:border-primary/50" data-testid="button-app-store">
               <Apple className="text-4xl mr-5 text-primary" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Download on the</div>
@@ -184,7 +184,7 @@ export default function Landing() {
               </div>
             </Card>
             {/* Google Play Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-secondary/10 backdrop-blur border-2 border-secondary/20 hover:border-secondary/40" data-testid="button-play-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card border-2 border-secondary/30 hover:border-secondary/50" data-testid="button-play-store">
               <Play className="text-4xl mr-5 text-secondary fill-current" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Get it on</div>
