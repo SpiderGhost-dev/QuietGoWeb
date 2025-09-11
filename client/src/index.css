@@ -10,21 +10,21 @@
   --card-foreground: hsl(210 10% 18%);
   --popover: hsl(60 56% 96%);
   --popover-foreground: hsl(210 10% 18%);
-  --primary: hsl(98, 22%, 55%); /* Soft Sage */
+  --primary: hsl(120, 10%, 58%); /* #899c89 */
   --primary-foreground: hsl(60 56% 96%);
-  --secondary: hsl(19 31% 73%); /* Logo Rose #D4A799 */
+  --secondary: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
   --secondary-foreground: hsl(210 10% 18%);
   --muted: hsl(60 35% 78%); /* Richer muted */
   --muted-foreground: hsl(210, 8%, 35%); /* Darker muted text */
-  --accent: hsl(19 31% 73%); /* Logo Rose #D4A799 */
+  --accent: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
   --accent-foreground: hsl(60 56% 96%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(60 56% 96%);
   --border: hsl(60 30% 80%);
   --input: hsl(60 30% 80%);
-  --ring: hsl(98, 22%, 42%); /* Soft sage ring */
-  --chart-1: hsl(98, 22%, 55%); /* Soft sage chart */
-  --chart-2: hsl(19 31% 73%); /* Logo Rose #D4A799 */
+  --ring: hsl(120, 10%, 55%); /* #899c89 ring */
+  --chart-1: hsl(120, 10%, 58%); /* #899c89 chart */
+  --chart-2: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
   --chart-3: hsl(223 24% 51%); /* Slate Blue #6A7BA2 */
   --chart-4: hsl(206 51% 54%); /* Steel Blue #4682B4 */
   --chart-5: hsl(179 47% 42%); /* Teal Blue #3C9D9B */
@@ -99,7 +99,7 @@
 
 /* Custom styles for QuietGo branding */
 .hero-gradient {
-  background: linear-gradient(135deg, hsl(98, 25%, 92%) 0%, hsl(45, 30%, 92%) 50%, hsl(19, 30%, 88%) 100%);
+  background: linear-gradient(135deg, hsl(210, 10%, 15%) 0%, hsl(210, 8%, 18%) 50%, hsl(210, 6%, 20%) 100%);
 }
 
 .dark .hero-gradient {
@@ -108,19 +108,19 @@
 
 /* QuietGo Brand Name Styling */
 .quietgo-brand .quiet {
-  color: hsl(94 25% 44%); /* Sage 500 #6C985F */
+  color: hsl(120, 10%, 58%); /* #899c89 */
 }
 
 .quietgo-brand .go {
-  color: hsl(19 31% 73%); /* Logo Rose #D4A799 */
+  color: hsl(204, 34%, 41%); /* Kashmir Blue #45708e */
 }
 
 .dark .quietgo-brand .quiet {
-  color: hsl(94 30% 50%); /* Brighter Sage for dark mode */
+  color: hsl(120, 15%, 65%); /* Lighter #899c89 for dark mode */
 }
 
 .dark .quietgo-brand .go {
-  color: hsl(19 35% 65%); /* Adjusted Logo Rose for dark mode */
+  color: hsl(204, 40%, 55%); /* Lighter Kashmir Blue for dark mode */
 }
 
 .pattern-viz {

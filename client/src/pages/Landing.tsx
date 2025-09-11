@@ -150,7 +150,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-gradient py-4 lg:py-6">
+      <section className="bg-foreground text-background py-4 lg:py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* QuietGo Company Logo - Top and Centered */}
           <div className="mb-8">
@@ -158,17 +158,17 @@ export default function Landing() {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6">
+          <h1 className="text-4xl lg:text-6xl font-serif font-bold leading-tight mb-6 text-background">
             Your gut talks.<br />
             <QuietGoBrand size="xl" className="inline text-4xl lg:text-6xl" /> translates.
           </h1>
           
-          <p className="text-xl lg:text-2xl text-muted-foreground mb-12 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-xl lg:text-2xl text-background/70 mb-12 leading-relaxed max-w-3xl mx-auto">
             Capture the moment. Connect the dots. Act with confidence.
           </p>
           
           {/* We Believe Statement */}
-          <p className="text-lg text-muted-foreground mb-12 leading-relaxed max-w-4xl mx-auto">
+          <p className="text-lg text-background/70 mb-12 leading-relaxed max-w-4xl mx-auto">
             We believe digestive health insights should be private, actionable, and designed for real life. 
             No social features, no judgment—just patterns that help you understand your body better.
           </p>
@@ -176,7 +176,7 @@ export default function Landing() {
           {/* App Download Buttons - Enhanced CTA */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
             {/* iOS App Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card border-2 border-primary/30 hover:border-primary/50" data-testid="button-app-store">
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-background border-2 border-primary/50 hover:border-primary/70" data-testid="button-app-store">
               <Apple className="text-4xl mr-5 text-primary" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Download on the</div>
@@ -184,8 +184,8 @@ export default function Landing() {
               </div>
             </Card>
             {/* Google Play Store mockup button */}
-            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-card border-2 border-secondary/30 hover:border-secondary/50" data-testid="button-play-store">
-              <Play className="text-4xl mr-5 text-secondary fill-current" />
+            <Card className="flex items-center p-8 hover:shadow-xl hover:scale-105 transition-all cursor-pointer bg-background border-2 border-accent/50 hover:border-accent/70" data-testid="button-play-store">
+              <Play className="text-4xl mr-5 text-accent fill-current" />
               <div className="text-left">
                 <div className="text-sm text-muted-foreground font-medium">Get it on</div>
                 <div className="text-xl font-bold text-foreground">Google Play</div>
@@ -229,7 +229,7 @@ export default function Landing() {
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <Utensils className="text-accent text-xl" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Meal Photo AI</h3>
+              <h3 className="text-xl font-semibold mb-3">CalcuPlate Photo AI</h3>
               <p className="text-muted-foreground mb-4">
                 Automatically detect foods, estimate portions, and calculate calories and macros with one-tap edits.
               </p>
@@ -254,14 +254,14 @@ export default function Landing() {
 
             {/* Privacy First */}
             <Card className="p-6 hover:shadow-lg transition-all" data-testid="card-privacy">
-              <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
-                <Shield className="text-secondary-foreground text-xl" />
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                <Shield className="text-primary text-xl" />
               </div>
               <h3 className="text-xl font-semibold mb-3">Privacy First</h3>
               <p className="text-muted-foreground mb-4">
                 Photos auto-delete after analysis by default. Your data stays private with end-to-end encryption.
               </p>
-              <Badge variant="outline" className="text-secondary-foreground border-secondary">
+              <Badge variant="outline" className="text-primary border-primary">
                 HIPAA-aware design
               </Badge>
             </Card>
