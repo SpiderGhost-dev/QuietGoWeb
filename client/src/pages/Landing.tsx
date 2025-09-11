@@ -7,6 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Link } from "wouter";
 import { QuietGoBrand } from "@/components/QuietGoBrand";
 import logoGraphic from "@assets/logo-graphic_1757613896603.png";
 import heroLogo from "@assets/logo_1757613890711.png";
@@ -587,19 +588,19 @@ export default function Landing() {
             <div>
               <h3 className="font-semibold mb-3">Product</h3>
               <ul className="space-y-2 text-sm text-background/70">
-                <li><button onClick={() => scrollToSection('features')} className="hover:text-background transition-colors">Features</button></li>
-                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-background transition-colors">Pricing</button></li>
-                <li><a href="#" className="hover:text-background transition-colors">Mobile Apps</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">API</a></li>
+                <li><button onClick={() => scrollToSection('features')} className="hover:text-background transition-colors" data-testid="link-features-footer">Features</button></li>
+                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-background transition-colors" data-testid="link-pricing-footer">Pricing</button></li>
+                <li><Link href="/about" className="hover:text-background transition-colors" data-testid="link-about">About</Link></li>
+                <li><Link href="/contact" className="hover:text-background transition-colors" data-testid="link-contact">Contact</Link></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="font-semibold mb-3">Privacy</h3>
+              <h3 className="font-semibold mb-3">Legal</h3>
               <ul className="space-y-2 text-sm text-background/70">
-                <li><a href="#" className="hover:text-background transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Data Processing</a></li>
+                <li><Link href="/privacy" className="hover:text-background transition-colors" data-testid="link-privacy">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-background transition-colors" data-testid="link-terms">Terms of Service</Link></li>
+                <li><button onClick={() => scrollToSection('privacy')} className="hover:text-background transition-colors" data-testid="link-privacy-section">Data Protection</button></li>
                 <li><a href="#" className="hover:text-background transition-colors">HIPAA Notice</a></li>
               </ul>
             </div>
@@ -607,8 +608,8 @@ export default function Landing() {
             <div>
               <h3 className="font-semibold mb-3">Support</h3>
               <ul className="space-y-2 text-sm text-background/70">
-                <li><a href="#" className="hover:text-background transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-background transition-colors">Contact Us</a></li>
+                <li><Link href="/about" className="hover:text-background transition-colors" data-testid="link-about-footer">About QuietGo</Link></li>
+                <li><Link href="/contact" className="hover:text-background transition-colors" data-testid="link-contact-footer">Contact Us</Link></li>
                 <li><a href="#" className="hover:text-background transition-colors">Health Resources</a></li>
                 <li><a href="#" className="hover:text-background transition-colors">Healthcare Providers</a></li>
               </ul>

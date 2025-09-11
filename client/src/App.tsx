@@ -8,6 +8,10 @@ import Landing from "@/pages/Landing";
 import Home from "@/pages/Home";
 import Dashboard from "@/pages/Dashboard";
 import Subscribe from "@/pages/Subscribe";
+import About from "@/pages/About";
+import Contact from "@/pages/Contact";
+import Privacy from "@/pages/Privacy";
+import Terms from "@/pages/Terms";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -15,6 +19,13 @@ function Router() {
 
   return (
     <Switch>
+      {/* Static pages accessible to everyone */}
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
+      
+      {/* Authentication-dependent routes */}
       {isLoading || !isAuthenticated ? (
         <Route path="/" component={Landing} />
       ) : (
