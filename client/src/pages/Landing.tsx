@@ -233,7 +233,7 @@ export default function Landing() {
               <p className="text-muted-foreground mb-4">
                 Automatically detect foods, estimate portions, and calculate calories and macros with one-tap edits.
               </p>
-              <Badge variant="outline" className="border-[#563E2D]" style={{color: '#563E2D'}}>
+              <Badge variant="outline" className="border-border" style={{color: '#563E2D'}}>
                 $2.99/mo add-on service
               </Badge>
             </Card>
@@ -275,7 +275,7 @@ export default function Landing() {
               <p className="text-muted-foreground mb-4">
                 Share trend data with doctors, trainers, or caregivers. View-only access, revokable anytime.
               </p>
-              <Badge variant="outline" className="border-[#563E2D]" style={{color: '#563E2D'}}>
+              <Badge variant="outline" className="border-border" style={{color: '#563E2D'}}>
                 No photos shared by default
               </Badge>
             </Card>
@@ -379,25 +379,25 @@ export default function Landing() {
               <div className="text-sm text-muted-foreground mb-4">Requires Pro plan</div>
               <ul className="text-left space-y-3 text-sm mb-6">
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-foreground/80 mr-2 w-4 h-4" />
                   Food photo recognition
                 </li>
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-foreground/80 mr-2 w-4 h-4" />
                   Automatic macros
                 </li>
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-foreground/80 mr-2 w-4 h-4" />
                   Portion estimation
                 </li>
                 <li className="flex items-center">
-                  <Check className="text-accent mr-2 w-4 h-4" />
+                  <Check className="text-foreground/80 mr-2 w-4 h-4" />
                   One-tap corrections
                 </li>
               </ul>
               <Button 
                 variant="outline"
-                className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                className="w-full"
                 onClick={() => setSubscriptionModalOpen(true)}
                 data-testid="button-add-meal-ai"
               >
