@@ -379,26 +379,25 @@ export default function Landing() {
               <div className="text-sm text-muted-foreground mb-4">Requires Pro plan</div>
               <ul className="text-left space-y-3 text-sm mb-6">
                 <li className="flex items-center">
-                  <Check className="mr-2 w-4 h-4" style={{color: '#563E2D'}} />
+                  <Check className="text-accent mr-2 w-4 h-4" />
                   Food photo recognition
                 </li>
                 <li className="flex items-center">
-                  <Check className="mr-2 w-4 h-4" style={{color: '#563E2D'}} />
+                  <Check className="text-accent mr-2 w-4 h-4" />
                   Automatic macros
                 </li>
                 <li className="flex items-center">
-                  <Check className="mr-2 w-4 h-4" style={{color: '#563E2D'}} />
+                  <Check className="text-accent mr-2 w-4 h-4" />
                   Portion estimation
                 </li>
                 <li className="flex items-center">
-                  <Check className="mr-2 w-4 h-4" style={{color: '#563E2D'}} />
+                  <Check className="text-accent mr-2 w-4 h-4" />
                   One-tap corrections
                 </li>
               </ul>
               <Button 
                 variant="outline"
-                className="w-full hover:bg-accent hover:text-accent-foreground"
-                style={{borderColor: '#563E2D', color: '#563E2D'}}
+                className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                 onClick={() => setSubscriptionModalOpen(true)}
                 data-testid="button-add-meal-ai"
               >

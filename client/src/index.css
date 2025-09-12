@@ -10,32 +10,32 @@
   --card-foreground: hsl(0, 0%, 95%);
   --popover: hsl(0, 0%, 8%);
   --popover-foreground: hsl(0, 0%, 95%);
-  --primary: hsl(0, 0%, 40%); /* Grey for primary */
+  --primary: hsl(94 25% 44%); /* Sage Green */
   --primary-foreground: hsl(0, 0%, 95%);
-  --secondary: hsl(0, 0%, 35%); /* Grey for secondary */
+  --secondary: hsl(223 15% 45%); /* Slate Blue */
   --secondary-foreground: hsl(0, 0%, 95%);
   --muted: hsl(0, 0%, 20%); /* Dark grey for muted elements */
   --muted-foreground: hsl(0, 0%, 70%); /* Light grey text */
-  --accent: hsl(0, 0%, 45%); /* Grey for accent */
+  --accent: hsl(19 30% 52%); /* Logo Rose */
   --accent-foreground: hsl(0, 0%, 95%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(0, 0%, 95%);
   --border: hsl(0, 0%, 25%);
   --input: hsl(0, 0%, 15%);
-  --ring: hsl(0, 0%, 40%);
-  --chart-1: hsl(0, 0%, 40%);
+  --ring: hsl(94 25% 44%);
+  --chart-1: hsl(94 25% 44%);
   --chart-2: hsl(0, 0%, 40%); /* Dark grey for charts */
   --chart-3: hsl(0, 0%, 50%); /* Medium grey for charts */
   --chart-4: hsl(0, 0%, 60%); /* Lighter grey for charts */
   --chart-5: hsl(0, 0%, 70%); /* Even lighter grey for charts */
   --sidebar: hsl(0, 0%, 8%);
   --sidebar-foreground: hsl(0, 0%, 95%);
-  --sidebar-primary: hsl(0, 0%, 40%);
+  --sidebar-primary: hsl(94 25% 44%);
   --sidebar-primary-foreground: hsl(0, 0%, 95%);
   --sidebar-accent: hsl(0, 0%, 30%); /* Dark grey accent */
   --sidebar-accent-foreground: hsl(0, 0%, 95%);
   --sidebar-border: hsl(0, 0%, 25%);
-  --sidebar-ring: hsl(0, 0%, 40%);
+  --sidebar-ring: hsl(94 25% 44%);
   --font-sans: "Inter", sans-serif;
   --font-serif: "Playfair Display", serif;
   --font-mono: "Fira Code", monospace;
@@ -61,11 +61,11 @@
   --popover-foreground: hsl(60 56% 91%);
   --primary: hsl(94 30% 50%); /* Brighter Sage for dark mode */
   --primary-foreground: hsl(210 10% 12%);
-  --secondary: hsl(210 5% 35%);
+  --secondary: hsl(223 15% 45%);
   --secondary-foreground: hsl(210 10% 12%);
   --muted: hsl(210 5% 20%);
   --muted-foreground: hsl(210 5% 65%);
-  --accent: hsl(210 5% 45%);
+  --accent: hsl(19 30% 52%);
   --accent-foreground: hsl(210 10% 12%);
   --destructive: hsl(0 65% 50%);
   --destructive-foreground: hsl(60 56% 91%);
