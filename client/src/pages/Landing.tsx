@@ -233,7 +233,7 @@ export default function Landing() {
               <p className="text-muted-foreground mb-4">
                 Automatically detect foods, estimate portions, and calculate calories and macros with one-tap edits.
               </p>
-              <Badge variant="outline" className="border-border" style={{color: '#563E2D'}}>
+              <Badge variant="outline" className="border-border font-semibold" style={{color: '#563E2D', opacity: 1}}>
                 $2.99/mo add-on service
               </Badge>
             </Card>
@@ -275,7 +275,7 @@ export default function Landing() {
               <p className="text-muted-foreground mb-4">
                 Share trend data with doctors, trainers, or caregivers. View-only access, revokable anytime.
               </p>
-              <Badge variant="outline" className="border-border" style={{color: '#563E2D'}}>
+              <Badge variant="outline" className="border-border font-semibold" style={{color: '#563E2D', opacity: 1}}>
                 No photos shared by default
               </Badge>
             </Card>
