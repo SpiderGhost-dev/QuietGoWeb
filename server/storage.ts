@@ -25,8 +25,6 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   upsertUser(user: UpsertUser): Promise<User>;
   updateUserSubscription(id: string, subscriptionData: {
-    stripeCustomerId?: string;
-    stripeSubscriptionId?: string;
     subscriptionStatus?: string;
     subscriptionPlan?: string;
     mealAiAddon?: boolean;
@@ -77,8 +75,6 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateUserSubscription(id: string, subscriptionData: {
-    stripeCustomerId?: string;
-    stripeSubscriptionId?: string;
     subscriptionStatus?: string;
     subscriptionPlan?: string;
     mealAiAddon?: boolean;

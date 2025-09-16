@@ -35,9 +35,7 @@ export const users = pgTable("users", {
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   profileImageUrl: varchar("profile_image_url"),
-  stripeCustomerId: varchar("stripe_customer_id"),
-  stripeSubscriptionId: varchar("stripe_subscription_id"),
-  subscriptionStatus: varchar("subscription_status").default("free"),
+  subscriptionStatus: varchar("subscription_status").default("free"), // Managed through mobile app stores
   subscriptionPlan: varchar("subscription_plan").default("free"), // free, pro_monthly, pro_yearly
   mealAiAddon: boolean("meal_ai_addon").default(false),
   createdAt: timestamp("created_at").defaultNow(),

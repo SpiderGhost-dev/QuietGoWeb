@@ -3,18 +3,11 @@ import { createServer, type Server } from "http";
 import multer from "multer";
 import path from "path";
 import fs from "fs/promises";
-import Stripe from "stripe";
 import { storage } from "./storage";
 import { setupAuth, isAuthenticated } from "./replitAuth";
 import { analyzeStoolPhoto, analyzeMealPhoto } from "./openai.js";
 import { insertHealthLogSchema, insertFileUploadSchema } from "@shared/schema";
 import { z } from "zod";
-
-// Stripe setup
-const stripeKey = process.env.STRIPE_SECRET_KEY || 'sk_test_placeholder_key_for_development';
-const stripe = new Stripe(stripeKey, {
-  apiVersion: "2024-06-20",
-} as any);
 
 // Multer setup for file uploads
 const upload = multer({
@@ -220,84 +213,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Subscription routes
-  app.post('/api/create-subscription', isAuthenticated, async (req: any, res) => {
+  // Subscription info route (managed through mobile app stores)
+  app.get('/api/subscription-status', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
-      const { plan } = req.body; // "pro_monthly", "pro_yearly", "meal_ai_addon"
-
+      
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Check if user already has an active subscription
-      if (user.stripeSubscriptionId) {
-        const subscription = await stripe.subscriptions.retrieve(user.stripeSubscriptionId);
-        
-        if (subscription.status === 'active') {
-          const invoice = await stripe.invoices.retrieve(subscription.latest_invoice as string, {
-            expand: ['payment_intent']
-          });
-          
-          return res.json({
-            subscriptionId: subscription.id,
-            clientSecret: (invoice as any).payment_intent?.client_secret,
-          });
-        }
-      }
-
-      if (!user.email) {
-        return res.status(400).json({ message: 'No user email on file' });
-      }
-
-      // Create or get Stripe customer
-      let customerId = user.stripeCustomerId;
-      if (!customerId) {
-        const customer = await stripe.customers.create({
-          email: user.email,
-          metadata: { userId }
-        });
-        customerId = customer.id;
-        await storage.updateUserSubscription(userId, { stripeCustomerId: customerId });
-      }
-
-      // Define price IDs (these would come from Stripe dashboard)
-      const priceIds = {
-        pro_monthly: process.env.STRIPE_PRICE_PRO_MONTHLY || 'price_pro_monthly',
-        pro_yearly: process.env.STRIPE_PRICE_PRO_YEARLY || 'price_pro_yearly',
-        meal_ai_addon: process.env.STRIPE_PRICE_MEAL_AI || 'price_meal_ai',
-      };
-
-      const priceId = priceIds[plan as keyof typeof priceIds];
-      if (!priceId) {
-        return res.status(400).json({ message: 'Invalid subscription plan' });
-      }
-
-      // Create subscription
-      const subscription = await stripe.subscriptions.create({
-        customer: customerId,
-        items: [{ price: priceId }],
-        payment_behavior: 'default_incomplete',
-        expand: ['latest_invoice.payment_intent'],
-      });
-
-      // Update user subscription info
-      await storage.updateUserSubscription(userId, {
-        stripeSubscriptionId: subscription.id,
-        subscriptionStatus: subscription.status,
-        subscriptionPlan: plan,
-        mealAiAddon: plan === 'meal_ai_addon' || Boolean(user.mealAiAddon),
-      });
-
-      const invoice = subscription.latest_invoice as any;
+      // Return subscription status (managed through app stores)
       res.json({
-        subscriptionId: subscription.id,
-        clientSecret: invoice.payment_intent.client_secret,
+        subscriptionStatus: user.subscriptionStatus || 'free',
+        subscriptionPlan: user.subscriptionPlan || 'free',
+        mealAiAddon: user.mealAiAddon || false,
+        message: 'Subscription managed through mobile app stores'
       });
     } catch (error: any) {
-      console.error("Error creating subscription:", error);
-      res.status(500).json({ message: 'Error creating subscription: ' + error.message });
+      console.error("Error fetching subscription status:", error);
+      res.status(500).json({ message: 'Error fetching subscription status' });
     }
   });
 
