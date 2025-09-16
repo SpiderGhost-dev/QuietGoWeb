@@ -44,9 +44,19 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 
 // Admin authentication middleware
 export const isAdminAuthenticated: RequestHandler = (req: any, res, next) => {
+  console.log(`Admin auth check for ${req.path}:`, {
+    hasSession: !!req.session,
+    sessionId: req.session?.id,
+    adminId: req.session?.adminId,
+    cookies: req.headers.cookie
+  });
+  
   if (req.session?.adminId) {
+    console.log(`Admin authenticated for ${req.path}`);
     return next();
   }
+  
+  console.log(`Admin NOT authenticated for ${req.path}`);
   
   // For API requests, return JSON error
   if (req.path.startsWith("/admin/api")) {
