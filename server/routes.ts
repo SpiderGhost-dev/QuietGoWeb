@@ -284,13 +284,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     legacyHeaders: false,
   });
 
-  // Setup admin session middleware
-  app.use("/admin", getAdminSession());
-
-  // Admin authentication routes
-  app.post('/admin/api/login', adminLoginLimiter, async (req, res) => {
+  // Setup admin session middleware for all admin routes
+  const adminSessionMiddleware = getAdminSession();
+  
+  // Admin authentication routes - apply session middleware directly to route
+  app.post('/admin/api/login', adminSessionMiddleware, adminLoginLimiter, async (req, res) => {
     try {
       const { username, password } = req.body;
+      
       
       if (!username || !password) {
         return res.status(400).json({ message: "Username and password required" });
@@ -302,34 +303,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: "Invalid credentials" });
       }
       
-      // Regenerate session to prevent session fixation
-      req.session.regenerate((err) => {
-        if (err) {
-          console.error('Session regeneration error:', err);
+      // Set admin session directly (simpler approach)
+      (req.session as any).adminId = admin.id;
+      (req.session as any).adminUsername = admin.username;
+      
+      
+      // Save session
+      req.session.save((saveErr) => {
+        if (saveErr) {
+          console.error('Session save error:', saveErr);
           return res.status(500).json({ message: "Login failed" });
         }
         
-        // Set admin session after regeneration
-        (req.session as any).adminId = admin.id;
-        (req.session as any).adminUsername = admin.username;
-        
-        // Save session
-        req.session.save((saveErr) => {
-          if (saveErr) {
-            console.error('Session save error:', saveErr);
-            return res.status(500).json({ message: "Login failed" });
+        res.json({ 
+          message: "Login successful",
+          admin: {
+            id: admin.id,
+            username: admin.username,
+            email: admin.email,
+            firstName: admin.firstName,
+            lastName: admin.lastName,
           }
-          
-          res.json({ 
-            message: "Login successful",
-            admin: {
-              id: admin.id,
-              username: admin.username,
-              email: admin.email,
-              firstName: admin.firstName,
-              lastName: admin.lastName,
-            }
-          });
         });
       });
     } catch (error: any) {
@@ -338,7 +332,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/admin/api/logout', (req, res) => {
+  app.post('/admin/api/logout', adminSessionMiddleware, (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         return res.status(500).json({ message: "Logout failed" });
@@ -347,7 +341,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  app.get('/admin/api/me', isAdminAuthenticated, async (req: any, res) => {
+  app.get('/admin/api/me', adminSessionMiddleware, isAdminAuthenticated, async (req: any, res) => {
     try {
       const adminId = req.session.adminId;
       const admin = await storage.getAdmin(adminId);
@@ -371,7 +365,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin management routes
-  app.get('/admin/api/users', isAdminAuthenticated, async (req, res) => {
+  app.get('/admin/api/users', adminSessionMiddleware, isAdminAuthenticated, async (req, res) => {
     try {
       const allUsers = await db.select({
         id: users.id,
@@ -392,7 +386,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/admin/api/admins', isAdminAuthenticated, async (req, res) => {
+  app.get('/admin/api/admins', adminSessionMiddleware, isAdminAuthenticated, async (req, res) => {
     try {
       const admins = await storage.getAllAdmins();
       // Don't return password hashes
@@ -415,7 +409,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Analytics endpoints
-  app.get('/admin/api/stats', isAdminAuthenticated, async (req, res) => {
+  app.get('/admin/api/stats', adminSessionMiddleware, isAdminAuthenticated, async (req, res) => {
     try {
       const [userCount] = await db.select({ count: sql<number>`count(*)` }).from(users);
       const [logCount] = await db.select({ count: sql<number>`count(*)` }).from(healthLogs);
@@ -442,7 +436,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Setup route for creating initial admin (one-time use)
-  app.post('/admin/api/setup', adminLoginLimiter, async (req, res) => {
+  app.post('/admin/api/setup', adminSessionMiddleware, adminLoginLimiter, async (req, res) => {
     try {
       // Strict enforcement: Check if ANY admins exist (active or inactive)
       const adminCount = await storage.getAdminCount();

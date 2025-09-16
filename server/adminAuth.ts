@@ -25,9 +25,9 @@ export function getAdminSession() {
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production', // Only secure in production
-      sameSite: 'strict', // CSRF protection
+      sameSite: 'lax', // Allow navigation to work properly
       maxAge: sessionTtl,
-      path: "/admin", // Restrict to admin paths
+      // Remove path restriction to ensure cookie works properly
     },
   });
 }
