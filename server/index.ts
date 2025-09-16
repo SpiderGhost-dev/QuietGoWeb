@@ -1,4 +1,5 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
@@ -47,12 +48,32 @@ app.use((req, res, next) => {
     throw err;
   });
 
+  // Serve static files from public directory
+  app.use(express.static(path.resolve(process.cwd(), "public")));
+
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
+    // In production, fall back to serving static HTML files for non-API routes
+    app.get('*', (req, res, next) => {
+      if (req.path.startsWith('/api')) {
+        return next();
+      }
+      
+      // Check if it's a specific HTML file request
+      if (req.path === '/hub' || req.path === '/hub.html') {
+        res.sendFile(path.resolve(process.cwd(), 'public', 'hub.html'));
+      } else if (req.path === '/privacy' || req.path === '/privacy.html') {
+        res.sendFile(path.resolve(process.cwd(), 'public', 'privacy.html'));
+      } else {
+        // Default to index.html for all other routes
+        res.sendFile(path.resolve(process.cwd(), 'public', 'index.html'));
+      }
+    });
+    
     serveStatic(app);
   }
 
