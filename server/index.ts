@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { getAdminSession } from "./adminAuth";
 
 const app = express();
 app.use(express.json());
@@ -46,6 +47,32 @@ app.use((req, res, next) => {
 
     res.status(status).json({ message });
     throw err;
+  });
+
+  // Protect admin HTML pages before serving static files
+  app.use('/admin', getAdminSession(), (req: any, res, next) => {
+    // Allow admin API routes to be handled by adminRouter
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
+    
+    // For admin HTML pages, check authentication
+    if (req.session?.adminId) {
+      return next();
+    }
+    
+    // Not authenticated, redirect to admin login
+    if (req.path === '/dashboard.html' || req.path === '/' || req.path === '') {
+      return res.redirect('/admin/login.html');
+    }
+    
+    // Allow login.html to be served without authentication
+    if (req.path === '/login.html') {
+      return next();
+    }
+    
+    // For any other admin routes, redirect to login
+    res.redirect('/admin/login.html');
   });
 
   // Serve static files from public directory

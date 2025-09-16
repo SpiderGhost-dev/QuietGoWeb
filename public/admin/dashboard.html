@@ -536,8 +536,14 @@
         document.addEventListener('DOMContentLoaded', async () => {
             // Add small delay to ensure DOM is fully rendered
             await new Promise(resolve => setTimeout(resolve, 100));
-            await checkAuth();
-            await loadDashboardData();
+            
+            // Check authentication first
+            const authSuccess = await checkAuth();
+            
+            // Only load dashboard data if authentication was successful
+            if (authSuccess) {
+                await loadDashboardData();
+            }
         });
 
         async function checkAuth() {
@@ -547,8 +553,12 @@
                 });
                 
                 if (!response.ok) {
-                    window.location.href = '/admin/login.html';
-                    return;
+                    console.log('Admin authentication failed, redirecting to login...');
+                    // Add a small delay to prevent rapid redirects and ensure page stability
+                    setTimeout(() => {
+                        window.location.replace('/admin/login.html');
+                    }, 100);
+                    return false;
                 }
                 
                 adminData = await response.json();
@@ -559,9 +569,15 @@
                 } else {
                     console.warn('admin-info element not found');
                 }
+                
+                return true;
             } catch (error) {
                 console.error('Auth check failed:', error);
-                window.location.href = '/admin/login.html';
+                // Add a small delay to prevent rapid redirects in case of network errors
+                setTimeout(() => {
+                    window.location.replace('/admin/login.html');
+                }, 500);
+                return false;
             }
         }
 
