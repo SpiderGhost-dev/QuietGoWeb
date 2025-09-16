@@ -29,7 +29,7 @@ Preferred communication style: Simple, everyday language.
 - **Primary Database**: PostgreSQL via Neon serverless
 - **Schema Management**: Drizzle migrations with type-safe schema definitions
 - **Key Tables**: 
-  - Users (with Stripe integration fields)
+  - Users (basic user information)
   - Health logs (stool/meal entries with Bristol scale enum)
   - File uploads (for image processing)
   - Patterns (AI-generated insights)
@@ -48,9 +48,9 @@ Preferred communication style: Simple, everyday language.
 - **Protected Routes**: Middleware-based authentication checks
 
 ### Subscription System
-- **Payment Processor**: Stripe with webhook support
-- **Plans**: Free tier, Pro monthly/yearly, optional Meal AI addon
-- **Features**: Tiered access to AI analysis and advanced pattern recognition
+- **Payment Processing**: All subscriptions handled through mobile app stores only
+- **Plans**: Marketing site promotes app downloads - no web-based payments
+- **Features**: Static marketing content to convert visitors to app downloads
 
 ### File Upload & Storage
 - **Upload Handling**: Multer with 10MB file size limits
@@ -67,7 +67,7 @@ Preferred communication style: Simple, everyday language.
 
 ### Third-Party Services
 - **AI Services**: OpenAI API for image analysis and health insights
-- **Payment Processing**: Stripe for subscription management and payments
+- **Payment Processing**: No web payments - directs users to mobile app stores
 - **Email**: Configured for OTP verification (provider configurable)
 
 ### Development Tools
