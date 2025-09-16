@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuietGo Admin Dashboard</title>
+    <link href="../css/styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        .admin-header {
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-header h1 {
+            color: #2563eb;
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .admin-user span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+        
+        .admin-container {
+            display: flex;
+            min-height: calc(100vh - 73px);
+        }
+        
+        .admin-sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            padding: 2rem 0;
+        }
+        
+        .nav-item {
+            padding: 0.75rem 2rem;
+            color: #6b7280;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .nav-item:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+        
+        .nav-item.active {
+            background: #eff6ff;
+            color: #2563eb;
+            border-left-color: #2563eb;
+            font-weight: 600;
+        }
+        
+        .admin-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #2563eb;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .data-table {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            background: #f9fafb;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .table-header h3 {
+            margin: 0;
+            color: #1f2937;
+            font-size: 1.1rem;
+        }
+        
+        .table-content {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+            font-size: 0.9rem;
+        }
+        
+        td {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-free {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-pro {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+        }
+        
+        .error {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .add-admin-btn {
+            background: #2563eb;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .add-admin-btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            margin: 0;
+            color: #1f2937;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374151;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+        }
+        
+        .btn-secondary {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #d1d5db;
+            background: white;
+            color: #374151;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            padding: 0.75rem 1.5rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>QuietGo Admin Dashboard</h1>
+        <div class="admin-user">
+            <span id="admin-info">Loading...</span>
+            <button class="logout-btn" onclick="logout()" data-testid="button-logout">Logout</button>
+        </div>
+    </div>
+    
+    <div class="admin-container">
+        <div class="admin-sidebar">
+            <div class="nav-item active" onclick="showSection('analytics')" data-testid="nav-analytics">
+                📊 Analytics Dashboard
+            </div>
+            <div class="nav-item" onclick="showSection('users')" data-testid="nav-users">
+                👥 User Management
+            </div>
+            <div class="nav-item" onclick="showSection('content')" data-testid="nav-content">
+                📝 Content Management
+            </div>
+            <div class="nav-item" onclick="showSection('settings')" data-testid="nav-settings">
+                ⚙️ System Settings
+            </div>
+        </div>
+        
+        <div class="admin-content">
+            <!-- Analytics Dashboard -->
+            <div id="analytics" class="content-section active">
+                <h2>Analytics Dashboard</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-users">-</div>
+                        <div class="stat-label">Total Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="recent-users">-</div>
+                        <div class="stat-label">New Users (30 days)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-logs">-</div>
+                        <div class="stat-label">Total Health Logs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-uploads">-</div>
+                        <div class="stat-label">File Uploads</div>
+                    </div>
+                </div>
+                
+                <div class="data-table">
+                    <div class="table-header">
+                        <h3>Recent User Activity</h3>
+                    </div>
+                    <div class="table-content">
+                        <div id="analytics-loading" class="loading">Loading analytics data...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Management -->
+            <div id="users" class="content-section">
+                <h2>User Management</h2>
+                <div class="data-table">
+                    <div class="table-header">
+                        <h3>All Users</h3>
+                    </div>
+                    <div class="table-content">
+                        <div id="users-loading" class="loading">Loading users...</div>
+                        <table id="users-table" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Subscription</th>
+                                    <th>Meal AI</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Management -->
+            <div id="content" class="content-section">
+                <h2>Content Management</h2>
+                <div class="data-table">
+                    <div class="table-header">
+                        <h3>Site Configuration</h3>
+                    </div>
+                    <div class="table-content" style="padding: 2rem;">
+                        <p style="color: #6b7280; margin-bottom: 2rem;">Manage QuietGo website content and configuration.</p>
+                        
+                        <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            <button class="btn-primary" onclick="manageHomepage()" data-testid="button-manage-homepage">
+                                🏠 Homepage Content
+                            </button>
+                            <button class="btn-primary" onclick="manageFeatures()" data-testid="button-manage-features">
+                                ✨ Features Section
+                            </button>
+                            <button class="btn-primary" onclick="manageTestimonials()" data-testid="button-manage-testimonials">
+                                💬 Testimonials
+                            </button>
+                            <button class="btn-primary" onclick="manageFAQ()" data-testid="button-manage-faq">
+                                ❓ FAQ Section
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System Settings -->
+            <div id="settings" class="content-section">
+                <h2>System Settings</h2>
+                
+                <div class="data-table" style="margin-bottom: 2rem;">
+                    <div class="table-header">
+                        <h3>Admin Management</h3>
+                    </div>
+                    <div class="table-content">
+                        <div style="padding: 1rem;">
+                            <button class="add-admin-btn" onclick="showAddAdminModal()" data-testid="button-add-admin">
+                                + Add New Admin
+                            </button>
+                        </div>
+                        <div id="admins-loading" class="loading">Loading admin accounts...</div>
+                        <table id="admins-table" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Last Login</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admins-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="data-table">
+                    <div class="table-header">
+                        <h3>System Configuration</h3>
+                    </div>
+                    <div class="table-content" style="padding: 2rem;">
+                        <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            <button class="btn-primary" onclick="manageDatabase()" data-testid="button-manage-database">
+                                🗄️ Database Status
+                            </button>
+                            <button class="btn-primary" onclick="manageBackups()" data-testid="button-manage-backups">
+                                💾 Backup System
+                            </button>
+                            <button class="btn-primary" onclick="manageLogs()" data-testid="button-manage-logs">
+                                📋 System Logs
+                            </button>
+                            <button class="btn-primary" onclick="manageAPI()" data-testid="button-manage-api">
+                                🔌 API Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Admin Modal -->
+    <div id="add-admin-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Admin</h3>
+                <button class="close-btn" onclick="closeAddAdminModal()">&times;</button>
+            </div>
+            
+            <form id="add-admin-form">
+                <div class="form-group">
+                    <label for="new-username">Username</label>
+                    <input type="text" id="new-username" required data-testid="input-new-username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-email">Email</label>
+                    <input type="email" id="new-email" required data-testid="input-new-email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-first-name">First Name</label>
+                    <input type="text" id="new-first-name" required data-testid="input-new-first-name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-last-name">Last Name</label>
+                    <input type="text" id="new-last-name" required data-testid="input-new-last-name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" required data-testid="input-new-password">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAddAdminModal()">Cancel</button>
+                    <button type="submit" class="btn-primary" data-testid="button-create-admin">Create Admin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let adminData = null;
+        let currentSection = 'analytics';
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkAuth();
+            await loadDashboardData();
+        });
+
+        async function checkAuth() {
+            try {
+                const response = await fetch('/admin/api/me', {
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    window.location.href = '/admin/login.html';
+                    return;
+                }
+                
+                adminData = await response.json();
+                document.getElementById('admin-info').textContent = 
+                    `${adminData.firstName} ${adminData.lastName} (${adminData.username})`;
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '/admin/login.html';
+            }
+        }
+
+        async function loadDashboardData() {
+            await Promise.all([
+                loadStats(),
+                loadUsers(),
+                loadAdmins()
+            ]);
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/admin/api/stats', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const stats = await response.json();
+                    document.getElementById('total-users').textContent = stats.totalUsers;
+                    document.getElementById('recent-users').textContent = stats.recentUsers;
+                    document.getElementById('total-logs').textContent = stats.totalLogs;
+                    document.getElementById('total-uploads').textContent = stats.totalUploads;
+                }
+                
+                document.getElementById('analytics-loading').innerHTML = '<p style="color: #6b7280;">Analytics data loaded successfully.</p>';
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+                document.getElementById('analytics-loading').innerHTML = '<div class="error">Failed to load analytics data.</div>';
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('/admin/api/users', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const users = await response.json();
+                    renderUsersTable(users);
+                } else {
+                    throw new Error('Failed to load users');
+                }
+            } catch (error) {
+                console.error('Failed to load users:', error);
+                document.getElementById('users-loading').innerHTML = '<div class="error">Failed to load users.</div>';
+            }
+        }
+
+        async function loadAdmins() {
+            try {
+                const response = await fetch('/admin/api/admins', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const admins = await response.json();
+                    renderAdminsTable(admins);
+                } else {
+                    throw new Error('Failed to load admins');
+                }
+            } catch (error) {
+                console.error('Failed to load admins:', error);
+                document.getElementById('admins-loading').innerHTML = '<div class="error">Failed to load admin accounts.</div>';
+            }
+        }
+
+        function renderUsersTable(users) {
+            const tbody = document.getElementById('users-tbody');
+            tbody.innerHTML = users.map(user => `
+                <tr data-testid="row-user-${user.id}">
+                    <td>${user.email || 'N/A'}</td>
+                    <td>${user.firstName || ''} ${user.lastName || ''}</td>
+                    <td><span class="status-badge status-${user.subscriptionPlan === 'free' ? 'free' : 'pro'}">${user.subscriptionPlan}</span></td>
+                    <td>${user.mealAiAddon ? '✅' : '❌'}</td>
+                    <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('users-loading').style.display = 'none';
+            document.getElementById('users-table').style.display = 'table';
+        }
+
+        function renderAdminsTable(admins) {
+            const tbody = document.getElementById('admins-tbody');
+            tbody.innerHTML = admins.map(admin => `
+                <tr data-testid="row-admin-${admin.id}">
+                    <td>${admin.username}</td>
+                    <td>${admin.email}</td>
+                    <td>${admin.firstName || ''} ${admin.lastName || ''}</td>
+                    <td><span class="status-badge status-active">${admin.isActive ? 'Active' : 'Inactive'}</span></td>
+                    <td>${admin.lastLoginAt ? new Date(admin.lastLoginAt).toLocaleString() : 'Never'}</td>
+                    <td>${new Date(admin.createdAt).toLocaleDateString()}</td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('admins-loading').style.display = 'none';
+            document.getElementById('admins-table').style.display = 'table';
+        }
+
+        function showSection(section) {
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(section).classList.add('active');
+            
+            currentSection = section;
+        }
+
+        async function logout() {
+            try {
+                await fetch('/admin/api/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+            
+            window.location.href = '/admin/login.html';
+        }
+
+        // Content Management Functions
+        function manageHomepage() {
+            alert('Homepage content management will open here. This would typically open a content editor for the main site content.');
+        }
+
+        function manageFeatures() {
+            alert('Features section management will open here. This would allow editing of the features displayed on the site.');
+        }
+
+        function manageTestimonials() {
+            alert('Testimonials management will open here. This would allow adding/editing user testimonials.');
+        }
+
+        function manageFAQ() {
+            alert('FAQ management will open here. This would allow editing frequently asked questions.');
+        }
+
+        // System Settings Functions
+        function manageDatabase() {
+            alert('Database management will open here. This would show database status, connection info, and maintenance options.');
+        }
+
+        function manageBackups() {
+            alert('Backup system will open here. This would allow creating backups and managing backup schedules.');
+        }
+
+        function manageLogs() {
+            alert('System logs will open here. This would show application logs, error logs, and system activity.');
+        }
+
+        function manageAPI() {
+            alert('API settings will open here. This would allow managing API keys, rate limits, and integration settings.');
+        }
+
+        // Add Admin Modal Functions
+        function showAddAdminModal() {
+            document.getElementById('add-admin-modal').style.display = 'block';
+        }
+
+        function closeAddAdminModal() {
+            document.getElementById('add-admin-modal').style.display = 'none';
+            document.getElementById('add-admin-form').reset();
+        }
+
+        document.getElementById('add-admin-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                username: document.getElementById('new-username').value,
+                email: document.getElementById('new-email').value,
+                firstName: document.getElementById('new-first-name').value,
+                lastName: document.getElementById('new-last-name').value,
+                password: document.getElementById('new-password').value
+            };
+            
+            try {
+                const response = await fetch('/admin/api/setup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Admin created successfully!');
+                    closeAddAdminModal();
+                    await loadAdmins(); // Reload admin list
+                } else {
+                    alert(data.message || 'Failed to create admin');
+                }
+            } catch (error) {
+                console.error('Error creating admin:', error);
+                alert('Failed to create admin. Please try again.');
+            }
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('add-admin-modal');
+            if (event.target === modal) {
+                closeAddAdminModal();
+            }
+        }
+    </script>
+</body>
+</html>

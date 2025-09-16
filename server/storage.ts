@@ -4,6 +4,7 @@ import {
   fileUploads,
   patterns,
   sharedAccess,
+  admins,
   type User,
   type UpsertUser,
   type HealthLog,
@@ -14,9 +15,11 @@ import {
   type InsertPattern,
   type SharedAccess,
   type InsertSharedAccess,
+  type Admin,
+  type InsertAdmin,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc, and, gte, lte, isNull } from "drizzle-orm";
+import { eq, desc, and, gte, lte, isNull, sql } from "drizzle-orm";
 
 // Interface for storage operations
 export interface IStorage {
@@ -48,6 +51,16 @@ export interface IStorage {
   createSharedAccess(access: InsertSharedAccess): Promise<SharedAccess>;
   getSharedAccess(userId: string): Promise<SharedAccess[]>;
   revokeSharedAccess(id: string): Promise<void>;
+
+  // Admin operations
+  createAdmin(admin: InsertAdmin): Promise<Admin>;
+  getAdmin(id: string): Promise<Admin | undefined>;
+  getAdminByUsername(username: string): Promise<Admin | undefined>;
+  updateAdminLogin(id: string): Promise<Admin>;
+  getAllAdmins(): Promise<Admin[]>;
+  updateAdmin(id: string, updates: Partial<InsertAdmin>): Promise<Admin>;
+  deactivateAdmin(id: string): Promise<Admin>;
+  getAdminCount(): Promise<number>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -183,6 +196,71 @@ export class DatabaseStorage implements IStorage {
       .update(sharedAccess)
       .set({ revokedAt: new Date() })
       .where(eq(sharedAccess.id, id));
+  }
+
+  // Admin operations
+  async createAdmin(admin: InsertAdmin): Promise<Admin> {
+    const [adminRecord] = await db.insert(admins).values(admin).returning();
+    return adminRecord;
+  }
+
+  async getAdmin(id: string): Promise<Admin | undefined> {
+    const [admin] = await db.select().from(admins).where(eq(admins.id, id));
+    return admin;
+  }
+
+  async getAdminByUsername(username: string): Promise<Admin | undefined> {
+    const [admin] = await db.select().from(admins).where(eq(admins.username, username));
+    return admin;
+  }
+
+  async updateAdminLogin(id: string): Promise<Admin> {
+    const [admin] = await db
+      .update(admins)
+      .set({
+        lastLoginAt: new Date(),
+        updatedAt: new Date(),
+      })
+      .where(eq(admins.id, id))
+      .returning();
+    return admin;
+  }
+
+  async getAllAdmins(): Promise<Admin[]> {
+    return await db
+      .select()
+      .from(admins)
+      .where(eq(admins.isActive, true))
+      .orderBy(desc(admins.createdAt));
+  }
+
+  async getAdminCount(): Promise<number> {
+    const [result] = await db.select({ count: sql<number>`count(*)` }).from(admins);
+    return result.count;
+  }
+
+  async updateAdmin(id: string, updates: Partial<InsertAdmin>): Promise<Admin> {
+    const [admin] = await db
+      .update(admins)
+      .set({
+        ...updates,
+        updatedAt: new Date(),
+      })
+      .where(eq(admins.id, id))
+      .returning();
+    return admin;
+  }
+
+  async deactivateAdmin(id: string): Promise<Admin> {
+    const [admin] = await db
+      .update(admins)
+      .set({
+        isActive: false,
+        updatedAt: new Date(),
+      })
+      .where(eq(admins.id, id))
+      .returning();
+    return admin;
   }
 }
 

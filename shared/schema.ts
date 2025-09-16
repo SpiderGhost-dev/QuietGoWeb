@@ -113,6 +113,20 @@ export const sharedAccess = pgTable("shared_access", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Admin table (for site administration)
+export const admins = pgTable("admins", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: varchar("username", { length: 50 }).unique().notNull(),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  firstName: varchar("first_name", { length: 100 }),
+  lastName: varchar("last_name", { length: 100 }),
+  isActive: boolean("is_active").default(true),
+  lastLoginAt: timestamp("last_login_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   healthLogs: many(healthLogs),
@@ -162,6 +176,13 @@ export const insertSharedAccessSchema = createInsertSchema(sharedAccess).omit({
   createdAt: true,
 });
 
+export const insertAdminSchema = createInsertSchema(admins).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  lastLoginAt: true,
+});
+
 // Types
 export type UpsertUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
@@ -173,3 +194,5 @@ export type Pattern = typeof patterns.$inferSelect;
 export type InsertPattern = z.infer<typeof insertPatternSchema>;
 export type SharedAccess = typeof sharedAccess.$inferSelect;
 export type InsertSharedAccess = z.infer<typeof insertSharedAccessSchema>;
+export type Admin = typeof admins.$inferSelect;
+export type InsertAdmin = z.infer<typeof insertAdminSchema>;

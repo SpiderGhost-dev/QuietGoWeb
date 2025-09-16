@@ -262,6 +262,213 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Import admin authentication modules
+  const { 
+    getAdminSession, 
+    isAdminAuthenticated, 
+    authenticateAdmin, 
+    createInitialAdmin 
+  } = await import("./adminAuth");
+  const { sql } = await import("drizzle-orm");
+  const { db } = await import("./db");
+  const { users, healthLogs, fileUploads } = await import("@shared/schema");
+  const { desc, gte } = await import("drizzle-orm");
+  
+  // Rate limiting for admin endpoints
+  const rateLimit = (await import("express-rate-limit")).default;
+  const adminLoginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // 5 attempts per window
+    message: { message: "Too many login attempts, please try again later" },
+    standardHeaders: true,
+    legacyHeaders: false,
+  });
+
+  // Setup admin session middleware
+  app.use("/admin", getAdminSession());
+
+  // Admin authentication routes
+  app.post('/admin/api/login', adminLoginLimiter, async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password required" });
+      }
+      
+      const admin = await authenticateAdmin(username, password);
+      
+      if (!admin) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      
+      // Regenerate session to prevent session fixation
+      req.session.regenerate((err) => {
+        if (err) {
+          console.error('Session regeneration error:', err);
+          return res.status(500).json({ message: "Login failed" });
+        }
+        
+        // Set admin session after regeneration
+        (req.session as any).adminId = admin.id;
+        (req.session as any).adminUsername = admin.username;
+        
+        // Save session
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error('Session save error:', saveErr);
+            return res.status(500).json({ message: "Login failed" });
+          }
+          
+          res.json({ 
+            message: "Login successful",
+            admin: {
+              id: admin.id,
+              username: admin.username,
+              email: admin.email,
+              firstName: admin.firstName,
+              lastName: admin.lastName,
+            }
+          });
+        });
+      });
+    } catch (error: any) {
+      console.error("Admin login error:", error);
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
+  app.post('/admin/api/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Logout failed" });
+      }
+      res.json({ message: "Logout successful" });
+    });
+  });
+
+  app.get('/admin/api/me', isAdminAuthenticated, async (req: any, res) => {
+    try {
+      const adminId = req.session.adminId;
+      const admin = await storage.getAdmin(adminId);
+      
+      if (!admin) {
+        return res.status(404).json({ message: "Admin not found" });
+      }
+      
+      res.json({
+        id: admin.id,
+        username: admin.username,
+        email: admin.email,
+        firstName: admin.firstName,
+        lastName: admin.lastName,
+        lastLoginAt: admin.lastLoginAt,
+      });
+    } catch (error: any) {
+      console.error("Error fetching admin:", error);
+      res.status(500).json({ message: "Failed to fetch admin info" });
+    }
+  });
+
+  // Admin management routes
+  app.get('/admin/api/users', isAdminAuthenticated, async (req, res) => {
+    try {
+      const allUsers = await db.select({
+        id: users.id,
+        email: users.email,
+        firstName: users.firstName,
+        lastName: users.lastName,
+        subscriptionStatus: users.subscriptionStatus,
+        subscriptionPlan: users.subscriptionPlan,
+        mealAiAddon: users.mealAiAddon,
+        createdAt: users.createdAt,
+        updatedAt: users.updatedAt,
+      }).from(users).orderBy(desc(users.createdAt));
+      
+      res.json(allUsers);
+    } catch (error: any) {
+      console.error("Error fetching users:", error);
+      res.status(500).json({ message: "Failed to fetch users" });
+    }
+  });
+
+  app.get('/admin/api/admins', isAdminAuthenticated, async (req, res) => {
+    try {
+      const admins = await storage.getAllAdmins();
+      // Don't return password hashes
+      const safeAdmins = admins.map(admin => ({
+        id: admin.id,
+        username: admin.username,
+        email: admin.email,
+        firstName: admin.firstName,
+        lastName: admin.lastName,
+        isActive: admin.isActive,
+        lastLoginAt: admin.lastLoginAt,
+        createdAt: admin.createdAt,
+      }));
+      
+      res.json(safeAdmins);
+    } catch (error: any) {
+      console.error("Error fetching admins:", error);
+      res.status(500).json({ message: "Failed to fetch admins" });
+    }
+  });
+
+  // Analytics endpoints
+  app.get('/admin/api/stats', isAdminAuthenticated, async (req, res) => {
+    try {
+      const [userCount] = await db.select({ count: sql<number>`count(*)` }).from(users);
+      const [logCount] = await db.select({ count: sql<number>`count(*)` }).from(healthLogs);
+      const [uploadCount] = await db.select({ count: sql<number>`count(*)` }).from(fileUploads);
+      
+      // Recent user signups (last 30 days)
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      
+      const [recentUsers] = await db.select({ count: sql<number>`count(*)` })
+        .from(users)
+        .where(gte(users.createdAt, thirtyDaysAgo));
+      
+      res.json({
+        totalUsers: userCount.count,
+        totalLogs: logCount.count,
+        totalUploads: uploadCount.count,
+        recentUsers: recentUsers.count,
+      });
+    } catch (error: any) {
+      console.error("Error fetching stats:", error);
+      res.status(500).json({ message: "Failed to fetch statistics" });
+    }
+  });
+
+  // Setup route for creating initial admin (one-time use)
+  app.post('/admin/api/setup', adminLoginLimiter, async (req, res) => {
+    try {
+      // Strict enforcement: Check if ANY admins exist (active or inactive)
+      const adminCount = await storage.getAdminCount();
+      if (adminCount > 0) {
+        console.warn('Attempted unauthorized admin creation - setup already completed');
+        return res.status(403).json({ message: "Admin setup already completed. Contact system administrator." });
+      }
+      
+      const { username, email, firstName, lastName, password } = req.body;
+      
+      if (!username || !email || !password) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
+      
+      const admin = await createInitialAdmin(username, email, firstName, lastName, password);
+      
+      res.json({ 
+        message: "Initial admin created successfully",
+        adminId: admin.id 
+      });
+    } catch (error: any) {
+      console.error("Error creating initial admin:", error);
+      res.status(500).json({ message: "Failed to create admin" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
