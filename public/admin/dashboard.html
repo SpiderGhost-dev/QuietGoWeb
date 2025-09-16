@@ -534,6 +534,8 @@
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', async () => {
+            // Add small delay to ensure DOM is fully rendered
+            await new Promise(resolve => setTimeout(resolve, 100));
             await checkAuth();
             await loadDashboardData();
         });
@@ -550,8 +552,13 @@
                 }
                 
                 adminData = await response.json();
-                document.getElementById('admin-info').textContent = 
-                    `${adminData.firstName} ${adminData.lastName} (${adminData.username})`;
+                const adminInfoElement = document.getElementById('admin-info');
+                if (adminInfoElement) {
+                    adminInfoElement.textContent = 
+                        `${adminData.firstName} ${adminData.lastName} (${adminData.username})`;
+                } else {
+                    console.warn('admin-info element not found');
+                }
             } catch (error) {
                 console.error('Auth check failed:', error);
                 window.location.href = '/admin/login.html';
@@ -559,11 +566,16 @@
         }
 
         async function loadDashboardData() {
-            await Promise.all([
-                loadStats(),
-                loadUsers(),
-                loadAdmins()
-            ]);
+            try {
+                await Promise.all([
+                    loadStats().catch(e => console.error('Stats loading failed:', e)),
+                    loadUsers().catch(e => console.error('Users loading failed:', e)),
+                    loadAdmins().catch(e => console.error('Admins loading failed:', e))
+                ]);
+            } catch (error) {
+                console.error('Dashboard data loading failed:', error);
+                // Don't redirect on dashboard data failure, just log the error
+            }
         }
 
         async function loadStats() {
@@ -574,16 +586,29 @@
                 
                 if (response.ok) {
                     const stats = await response.json();
-                    document.getElementById('total-users').textContent = stats.totalUsers;
-                    document.getElementById('recent-users').textContent = stats.recentUsers;
-                    document.getElementById('total-logs').textContent = stats.totalLogs;
-                    document.getElementById('total-uploads').textContent = stats.totalUploads;
+                    const elements = {
+                        'total-users': stats.totalUsers,
+                        'recent-users': stats.recentUsers,
+                        'total-logs': stats.totalLogs,
+                        'total-uploads': stats.totalUploads
+                    };
+                    
+                    Object.entries(elements).forEach(([id, value]) => {
+                        const el = document.getElementById(id);
+                        if (el) el.textContent = value;
+                    });
                 }
                 
-                document.getElementById('analytics-loading').innerHTML = '<p style="color: #6b7280;">Analytics data loaded successfully.</p>';
+                const loadingEl = document.getElementById('analytics-loading');
+                if (loadingEl) {
+                    loadingEl.innerHTML = '<p style="color: #6b7280;">Analytics data loaded successfully.</p>';
+                }
             } catch (error) {
                 console.error('Failed to load stats:', error);
-                document.getElementById('analytics-loading').innerHTML = '<div class="error">Failed to load analytics data.</div>';
+                const loadingEl = document.getElementById('analytics-loading');
+                if (loadingEl) {
+                    loadingEl.innerHTML = '<div class="error">Failed to load analytics data.</div>';
+                }
             }
         }
 
@@ -601,7 +626,10 @@
                 }
             } catch (error) {
                 console.error('Failed to load users:', error);
-                document.getElementById('users-loading').innerHTML = '<div class="error">Failed to load users.</div>';
+                const loadingEl = document.getElementById('users-loading');
+                if (loadingEl) {
+                    loadingEl.innerHTML = '<div class="error">Failed to load users.</div>';
+                }
             }
         }
 
@@ -619,7 +647,10 @@
                 }
             } catch (error) {
                 console.error('Failed to load admins:', error);
-                document.getElementById('admins-loading').innerHTML = '<div class="error">Failed to load admin accounts.</div>';
+                const loadingEl = document.getElementById('admins-loading');
+                if (loadingEl) {
+                    loadingEl.innerHTML = '<div class="error">Failed to load admin accounts.</div>';
+                }
             }
         }
 

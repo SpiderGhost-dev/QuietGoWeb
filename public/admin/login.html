@@ -165,8 +165,8 @@
         const loginBtn = document.getElementById('login-btn');
         const loading = document.getElementById('loading');
 
-        // Check if already logged in
-        checkAdminAuth();
+        // Check if already logged in (with small delay to avoid redirect loops)
+        setTimeout(checkAdminAuth, 500);
 
         async function checkAdminAuth() {
             try {
