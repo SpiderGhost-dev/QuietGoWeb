@@ -44,8 +44,41 @@ function showHubContent() {
 // Update user info in navigation
 function updateUserInfo() {
     if (userData && userData.email) {
-        document.getElementById('userEmail').textContent = userData.email;
-        document.getElementById('userEmailMobile').textContent = userData.email;
+        // Update existing elements (with null checks for new structure)
+        const userEmailEl = document.getElementById('userEmail');
+        const userEmailMobileEl = document.getElementById('userEmailMobile');
+        if (userEmailEl) userEmailEl.textContent = userData.email;
+        if (userEmailMobileEl) userEmailMobileEl.textContent = userData.email;
+        
+        // Update new enhanced profile elements
+        const userName = `${userData.firstName || 'Health'} ${userData.lastName || 'Tracker'}`;
+        const displayName = userData.firstName || 'Friend';
+        
+        // Update profile displays
+        const userNameEl = document.getElementById('userName');
+        const welcomeNameEl = document.getElementById('welcomeName');
+        const userNameMobileEl = document.getElementById('userNameMobile');
+        
+        if (userNameEl) userNameEl.textContent = userData.email;
+        if (welcomeNameEl) welcomeNameEl.textContent = displayName;
+        if (userNameMobileEl) userNameMobileEl.textContent = userName;
+        
+        // Handle profile images
+        if (userData.profileImageUrl) {
+            const avatar = document.getElementById('userAvatar');
+            const avatarMobile = document.getElementById('userAvatarMobile');
+            if (avatar) {
+                avatar.src = userData.profileImageUrl;
+                avatar.style.display = 'block';
+            }
+            if (avatarMobile) {
+                avatarMobile.src = userData.profileImageUrl;
+                avatarMobile.style.display = 'block';
+            }
+        }
+        
+        // Update subscription status
+        updateSubscriptionDisplay(userData.subscriptionStatus || 'free', userData.subscriptionPlan || 'free');
     }
 }
 
@@ -54,6 +87,7 @@ async function loadDashboardData() {
     try {
         const stats = await loadDashboardStats();
         updateDataOverview(stats);
+        populateHealthStats();
         await loadRecentFiles();
     } catch (error) {
         console.error('Failed to load dashboard data:', error);
@@ -63,9 +97,13 @@ async function loadDashboardData() {
 
 // Update data overview stats
 function updateDataOverview(stats) {
-    document.getElementById('totalEntries').textContent = stats.totalEntries || '--';
-    document.getElementById('lastSync').textContent = stats.lastSync || '--';
-    document.getElementById('dataSize').textContent = stats.dataSize || '--';
+    const totalEntriesEl = document.getElementById('totalEntries');
+    const lastSyncEl = document.getElementById('lastSync');
+    const dataSizeEl = document.getElementById('dataSize');
+    
+    if (totalEntriesEl) totalEntriesEl.textContent = stats.totalEntries || '--';
+    if (lastSyncEl) lastSyncEl.textContent = stats.lastSync || '--';
+    if (dataSizeEl) dataSizeEl.textContent = stats.dataSize || '--';
 }
 
 // Load dashboard stats from API
@@ -540,6 +578,82 @@ function formatRelativeTime(date) {
     } else {
         return date.toLocaleDateString();
     }
+}
+
+// Enhanced Hub Functions for new interface
+
+// Update subscription display in header and sidebar
+function updateSubscriptionDisplay(status, plan) {
+    const subscriptionElements = [
+        document.getElementById('userSubscription'),
+        document.getElementById('userSubscriptionMobile'),
+        document.getElementById('subscriptionTier')
+    ];
+    
+    let badgeClass = 'status-free';
+    let displayText = 'Free Plan';
+    
+    if (status === 'active') {
+        if (plan === 'pro_yearly' || plan === 'pro_monthly') {
+            badgeClass = 'status-pro';
+            displayText = 'Pro Plan';
+        }
+    }
+    
+    subscriptionElements.forEach(el => {
+        if (el) {
+            el.className = `status-badge ${badgeClass}`;
+            el.textContent = displayText;
+        }
+    });
+}
+
+// Populate health statistics with demo/real data
+function populateHealthStats() {
+    // Demo data - replace with real API calls when backend is ready
+    const stats = {
+        totalEntries: 24,
+        lastSync: '2h',
+        insights: 7,
+        healthStreak: 3
+    };
+    
+    // Update stat displays
+    const totalEntriesEl = document.getElementById('totalEntries');
+    const lastSyncEl = document.getElementById('lastSync');
+    const insightsEl = document.getElementById('insights');
+    const healthStreakEl = document.getElementById('healthStreak');
+    const totalInsightsEl = document.getElementById('totalInsights');
+    
+    if (totalEntriesEl) totalEntriesEl.textContent = stats.totalEntries;
+    if (lastSyncEl) lastSyncEl.textContent = stats.lastSync;
+    if (insightsEl) insightsEl.textContent = stats.insights;
+    if (totalInsightsEl) totalInsightsEl.textContent = stats.insights;
+    if (healthStreakEl) healthStreakEl.innerHTML = `🔥 ${stats.healthStreak} day tracking streak`;
+}
+
+// Health tracking actions
+function openStoolEntry() {
+    showToast('Stool logging feature coming soon! This will include Bristol Scale classification and AI analysis.', 'info');
+    // TODO: Navigate to stool entry form when implemented
+}
+
+function openMealEntry() {
+    showToast('Meal logging feature coming soon! Upload photos for AI nutrition analysis.', 'info');
+    // TODO: Navigate to meal entry form when implemented
+}
+
+function openInsights() {
+    showToast('Health insights dashboard coming soon! View patterns and correlations in your data.', 'info');
+    // TODO: Navigate to insights dashboard when implemented
+}
+
+function openMobileApp() {
+    showToast('Subscription management is handled through the mobile app.', 'info');
+    // TODO: Deep link to mobile app subscription page
+    setTimeout(() => {
+        window.open('https://apps.apple.com/app/quietgo', '_blank');
+    }, 1000);
 }
 
 // Initialize modal close functionality for upload modal

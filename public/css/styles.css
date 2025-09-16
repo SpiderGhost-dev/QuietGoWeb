@@ -6,7 +6,8 @@
   --heading-color: #e6d7c3;       /* Main headings */
   --subheading-color: #f3ebe1;    /* Subheadings */
   --green-color: #8c9d8a;         /* Wherever green was used */
-  --accent-color: #bdcdde;        /* Accent color */
+  --accent-color: #bdcdde;        /* Accent color - light blue */
+  --accent-dark: #8fa3b8;         /* Darker blue shade */
   --quiet-color: #ddd6c5;         /* 'Quiet' in brand name */
   --go-color: #ce988c;            /* 'Go' in brand name */
   
@@ -231,6 +232,41 @@ p {
   transform: translateY(-2px);
 }
 
+.card-premium {
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(189, 205, 222, 0.1) 100%);
+  border: 1px solid var(--accent-color);
+}
+
+.card-featured {
+  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(143, 163, 184, 0.1) 100%);
+  border: 1px solid var(--accent-dark);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-free {
+  background-color: rgba(153, 153, 153, 0.2);
+  color: var(--muted-text);
+}
+
+.status-pro {
+  background-color: rgba(189, 205, 222, 0.2);
+  color: var(--accent-color);
+}
+
+.status-premium {
+  background-color: rgba(143, 163, 184, 0.2);
+  color: var(--accent-dark);
+}
+
 .card-icon {
   width: 48px;
   height: 48px;
@@ -295,7 +331,17 @@ p {
 }
 
 .btn-accent:hover {
-  background-color: #a8b8ca;
+  background-color: var(--accent-dark);
+}
+
+.btn-blue {
+  background-color: var(--accent-dark);
+  color: var(--text-color);
+}
+
+.btn-blue:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-1px);
 }
 
 .btn-large {
