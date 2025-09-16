@@ -1,8 +1,7 @@
 // QuietGo Site JavaScript - Minimal interactions
 // No frameworks, just vanilla JavaScript
 
-// State management
-let isAnnualBilling = false;
+// App configuration
 
 // Mobile menu functionality
 function toggleMobileMenu() {
@@ -49,62 +48,13 @@ function handlePlayStore() {
     // window.open('https://play.google.com/store/apps/details?id=com.quietgo.app', '_blank');
 }
 
-// Subscription modal functionality
-function openSubscriptionModal() {
-    const modal = document.getElementById('subscriptionModal');
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden'; // Prevent body scrolling
-}
 
-function closeSubscriptionModal() {
-    const modal = document.getElementById('subscriptionModal');
-    modal.classList.remove('open');
-    document.body.style.overflow = ''; // Restore body scrolling
-}
-
-// Toggle billing cycle (monthly/annual)
-function toggleBilling() {
-    isAnnualBilling = !isAnnualBilling;
-    const toggleBtn = document.getElementById('billingToggle');
-    const priceEl = document.getElementById('modalPrice');
-    const saveBadge = document.getElementById('saveBadge');
-    
-    if (isAnnualBilling) {
-        toggleBtn.textContent = 'Annual';
-        toggleBtn.classList.remove('btn-outline');
-        toggleBtn.classList.add('btn-primary');
-        priceEl.innerHTML = '$39.99<span class="price-note">/year</span>';
-        saveBadge.style.display = 'inline-block';
-    } else {
-        toggleBtn.textContent = 'Monthly';
-        toggleBtn.classList.remove('btn-primary');
-        toggleBtn.classList.add('btn-outline');
-        priceEl.innerHTML = '$4.99<span class="price-note">/month</span>';
-        saveBadge.style.display = 'none';
-    }
-}
-
-// Close modal when clicking outside
-function setupModalClickOutside() {
-    const modal = document.getElementById('subscriptionModal');
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeSubscriptionModal();
-        }
-    });
-}
 
 // Handle keyboard events
 function setupKeyboardEvents() {
     document.addEventListener('keydown', function(e) {
-        // Close modal on Escape key
+        // Close mobile menu on Escape key
         if (e.key === 'Escape') {
-            const modal = document.getElementById('subscriptionModal');
-            if (modal.classList.contains('open')) {
-                closeSubscriptionModal();
-            }
-            
-            // Close mobile menu
             const mobileMenu = document.getElementById('mobileMenu');
             if (mobileMenu.classList.contains('open')) {
                 mobileMenu.classList.remove('open');
@@ -115,7 +65,6 @@ function setupKeyboardEvents() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    setupModalClickOutside();
     setupKeyboardEvents();
     
     console.log('QuietGo site initialized');
@@ -186,7 +135,7 @@ function addScrollAnimations() {
     }, observerOptions);
     
     // Observe cards and sections
-    const animatedElements = document.querySelectorAll('.card, .pricing-card');
+    const animatedElements = document.querySelectorAll('.card');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
