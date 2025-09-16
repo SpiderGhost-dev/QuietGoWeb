@@ -18,11 +18,22 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth middleware
+  // Import required modules
+  const { Router } = await import('express');
+  
+  // Create separate routers for API and Admin
+  const apiRouter = Router();
+  const adminRouter = Router();
+  
+  // Setup auth middleware on main app (needed for passport config)
   await setupAuth(app);
+  
+  // But apply session middleware only to API router
+  const { getSession } = await import("./replitAuth");
+  apiRouter.use(getSession());
 
-  // Auth routes
-  app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
+  // Auth routes (on API router)
+  apiRouter.get('/auth/user', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -33,8 +44,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Health log routes
-  app.get("/api/health-logs", isAuthenticated, async (req: any, res) => {
+  // Health log routes (on API router)
+  apiRouter.get("/health-logs", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const limit = req.query.limit ? parseInt(req.query.limit) : 50;
@@ -46,7 +57,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/health-logs", isAuthenticated, async (req: any, res) => {
+  apiRouter.post("/health-logs", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const logData = insertHealthLogSchema.parse({
@@ -65,8 +76,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // File upload routes
-  app.post("/api/upload", isAuthenticated, upload.array("files", 10), async (req: any, res) => {
+  // File upload routes (on API router)
+  apiRouter.post("/upload", isAuthenticated, upload.array("files", 10), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const files = req.files as Express.Multer.File[];
@@ -109,7 +120,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/uploads", isAuthenticated, async (req: any, res) => {
+  apiRouter.get("/uploads", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const uploads = await storage.getFileUploads(userId);
@@ -120,8 +131,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Pattern analysis routes
-  app.get("/api/patterns", isAuthenticated, async (req: any, res) => {
+  // Pattern analysis routes (on API router)
+  apiRouter.get("/patterns", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const type = req.query.type as string;
@@ -133,7 +144,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/analyze-patterns", isAuthenticated, async (req: any, res) => {
+  apiRouter.post("/analyze-patterns", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const { startDate, endDate } = req.body;
@@ -155,7 +166,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // AI analysis routes (requires Pro subscription or CalcuPlate add-on)
-  app.post("/api/ai/stool-analysis", isAuthenticated, upload.single("photo"), async (req: any, res) => {
+  apiRouter.post("/ai/stool-analysis", isAuthenticated, upload.single("photo"), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -184,7 +195,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/ai/meal-analysis", isAuthenticated, upload.single("photo"), async (req: any, res) => {
+  apiRouter.post("/ai/meal-analysis", isAuthenticated, upload.single("photo"), async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
@@ -237,7 +248,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Data export route
-  app.post("/api/export-data", isAuthenticated, async (req: any, res) => {
+  apiRouter.post("/export-data", isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
       const { format, startDate, endDate } = req.body;
@@ -284,11 +295,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     legacyHeaders: false,
   });
 
-  // Setup admin session middleware for all admin routes
-  const adminSessionMiddleware = getAdminSession();
+  // Setup admin router with admin session middleware
+  adminRouter.use(getAdminSession());
   
-  // Admin authentication routes - apply session middleware directly to route
-  app.post('/admin/api/login', adminSessionMiddleware, adminLoginLimiter, async (req, res) => {
+  // Admin authentication routes
+  adminRouter.post('/api/login', adminLoginLimiter, async (req, res) => {
     try {
       const { username, password } = req.body;
       
@@ -303,9 +314,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: "Invalid credentials" });
       }
       
-      // Set admin session directly (simpler approach)
-      (req.session as any).adminId = admin.id;
-      (req.session as any).adminUsername = admin.username;
+      
+      // Regenerate session to prevent fixation attacks (security)
+      req.session.regenerate((err) => {
+        if (err) {
+          console.error('Session regeneration error:', err);
+          return res.status(500).json({ message: "Login failed" });
+        }
+        
+        // Set admin session
+        (req.session as any).adminId = admin.id;
+        (req.session as any).adminUsername = admin.username;
       
       
       // Save session
@@ -315,15 +334,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(500).json({ message: "Login failed" });
         }
         
-        res.json({ 
-          message: "Login successful",
-          admin: {
-            id: admin.id,
-            username: admin.username,
-            email: admin.email,
-            firstName: admin.firstName,
-            lastName: admin.lastName,
-          }
+          
+          res.json({ 
+            message: "Login successful",
+            admin: {
+              id: admin.id,
+              username: admin.username,
+              email: admin.email,
+              firstName: admin.firstName,
+              lastName: admin.lastName,
+            }
+          });
         });
       });
     } catch (error: any) {
@@ -332,7 +353,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post('/admin/api/logout', adminSessionMiddleware, (req, res) => {
+  adminRouter.post('/api/logout', (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         return res.status(500).json({ message: "Logout failed" });
@@ -341,7 +362,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  app.get('/admin/api/me', adminSessionMiddleware, isAdminAuthenticated, async (req: any, res) => {
+  adminRouter.get('/api/me', isAdminAuthenticated, async (req: any, res) => {
     try {
       const adminId = req.session.adminId;
       const admin = await storage.getAdmin(adminId);
@@ -365,7 +386,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin management routes
-  app.get('/admin/api/users', adminSessionMiddleware, isAdminAuthenticated, async (req, res) => {
+  adminRouter.get('/api/users', isAdminAuthenticated, async (req, res) => {
     try {
       const allUsers = await db.select({
         id: users.id,
@@ -386,7 +407,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/admin/api/admins', adminSessionMiddleware, isAdminAuthenticated, async (req, res) => {
+  adminRouter.get('/api/admins', isAdminAuthenticated, async (req, res) => {
     try {
       const admins = await storage.getAllAdmins();
       // Don't return password hashes
@@ -409,7 +430,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Analytics endpoints
-  app.get('/admin/api/stats', adminSessionMiddleware, isAdminAuthenticated, async (req, res) => {
+  adminRouter.get('/api/stats', isAdminAuthenticated, async (req, res) => {
     try {
       const [userCount] = await db.select({ count: sql<number>`count(*)` }).from(users);
       const [logCount] = await db.select({ count: sql<number>`count(*)` }).from(healthLogs);
@@ -436,7 +457,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Setup route for creating initial admin (one-time use)
-  app.post('/admin/api/setup', adminSessionMiddleware, adminLoginLimiter, async (req, res) => {
+  adminRouter.post('/api/setup', adminLoginLimiter, async (req, res) => {
     try {
       // Strict enforcement: Check if ANY admins exist (active or inactive)
       const adminCount = await storage.getAdminCount();
@@ -463,6 +484,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Mount routers on the main app
+  app.use('/api', apiRouter);
+  app.use('/admin', adminRouter);
+  
   const httpServer = createServer(app);
   return httpServer;
 }
