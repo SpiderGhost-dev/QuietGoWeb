@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['hub_logged_in']) || $_SESSION['hub_logged_in'] !== true) {
+    header('Location: /hub/login.php');
+    exit();
+}
+
+$hubUser = $_SESSION['hub_user'] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

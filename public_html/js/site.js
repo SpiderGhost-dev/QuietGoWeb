@@ -25,8 +25,8 @@ function scrollToSection(sectionId) {
 
 // Handle login redirect
 function handleLogin() {
-    // Redirect to QuietGo Hub or authentication
-    window.location.href = '/api/login';
+    // Redirect Hub visitors to the dedicated subscriber login
+    window.location.href = '/hub/login.php';
 }
 
 // Handle get started action

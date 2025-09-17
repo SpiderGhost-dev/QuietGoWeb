@@ -1,6 +1,9 @@
 // QuietGo Hub JavaScript - Subscriber dashboard functionality
 // Handles authentication, data management, and API interactions
 
+const HUB_API_BASE = '/hub/api';
+const HUB_LOGIN_PAGE = '/hub/login.php';
+
 // State management
 let userData = null;
 let filesData = [];
@@ -13,10 +16,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Check if user is authenticated
 async function checkAuthentication() {
     try {
-        const response = await fetch('/api/auth/user', {
+        const response = await fetch(`${HUB_API_BASE}/me.php`, {
             credentials: 'include'
         });
-        
+
         if (response.ok) {
             userData = await response.json();
             showHubContent();
@@ -24,13 +27,13 @@ async function checkAuthentication() {
             await loadDashboardData();
         } else {
             // User not authenticated, redirect to login
-            window.location.href = '/api/login';
+            window.location.href = HUB_LOGIN_PAGE;
         }
     } catch (error) {
         console.error('Authentication check failed:', error);
         showError('Failed to check authentication. Please try again.');
         setTimeout(() => {
-            window.location.href = '/api/login';
+            window.location.href = HUB_LOGIN_PAGE;
         }, 3000);
     }
 }
@@ -110,8 +113,8 @@ function updateDataOverview(stats) {
 async function loadDashboardStats() {
     try {
         const [logsResponse, uploadsResponse] = await Promise.all([
-            fetch('/api/health-logs?limit=1000', { credentials: 'include' }),
-            fetch('/api/uploads', { credentials: 'include' })
+            fetch(`${HUB_API_BASE}/health-logs.php?limit=1000`, { credentials: 'include' }),
+            fetch(`${HUB_API_BASE}/uploads.php`, { credentials: 'include' })
         ]);
         
         let totalEntries = 0;
@@ -143,7 +146,7 @@ async function loadDashboardStats() {
 // Load recent files
 async function loadRecentFiles() {
     try {
-        const response = await fetch('/api/uploads', {
+        const response = await fetch(`${HUB_API_BASE}/uploads.php`, {
             credentials: 'include'
         });
         
@@ -326,7 +329,7 @@ async function uploadFiles(files) {
         }, 200);
         
         // Upload to existing endpoint
-        const response = await fetch('/api/upload', {
+        const response = await fetch(`${HUB_API_BASE}/upload.php`, {
             method: 'POST',
             body: formData,
             credentials: 'include'
@@ -365,7 +368,7 @@ async function generateReport() {
         showSuccess('Generating your health report... This may take a moment.');
         
         // Use the export data endpoint for now
-        const response = await fetch('/api/export-data', {
+        const response = await fetch(`${HUB_API_BASE}/export-data.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -401,7 +404,7 @@ async function exportData() {
         showSuccess('Preparing your data export...');
         
         // Use the existing export endpoint
-        const response = await fetch('/api/export-data', {
+        const response = await fetch(`${HUB_API_BASE}/export-data.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -472,11 +475,11 @@ async function refreshData() {
 // Sign out
 async function handleSignOut() {
     try {
-        const response = await fetch('/api/auth/logout', {
+        const response = await fetch(`${HUB_API_BASE}/logout.php`, {
             method: 'POST',
             credentials: 'include'
         });
-        
+
         // Redirect to home page regardless of response
         window.location.href = '/';
     } catch (error) {
