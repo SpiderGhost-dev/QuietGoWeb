@@ -137,5 +137,10 @@ Use existing `.htaccess` or routing system. No other changes.
 
 ---
 
+## CONFIRMATION TO PR
+** Must have confirmation from user BEFORE initiating PR.
+
+---
+
 **End — AGENTV2.md**
 
