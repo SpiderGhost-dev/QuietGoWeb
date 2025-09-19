@@ -9,6 +9,9 @@
   - Admin: `includes/header-admin.php`, `includes/footer-admin.php`
 - **Branding text:** Any visible “QuietGo” renders as `<span class="quietgo-brand"><span class="quiet">Quiet</span><span class="go">Go</span></span>`.
 - **Brand script:** `js/site.js` includes an exact-match replacer + MutationObserver; supports cross-node cases (e.g., `Quiet<em>Go</em>`). Do not regress.
+- **Website has 2 core purposes: 1. convert vistors to downloads/subscribers of the mobile app. 2. QuietGo Hub - portal for subscribers to sync info from mobile app for viewing, organization, long-term storage, sharing, basically all the features available on the mobile app except camera usage. IT'S FOR THE SUBSCRIBERS CONVENIENCE.**
+- The app is NOT medical only! It is designed for medical, fitness, living your best life, whoever! One is not more important than the other.
+- Sharing is NOT just caregivers or medical orriented. Sharing is to caregivers, contacts, professionals (fitness trainer, etc...), whoever the subscriber chooses.
 
 ## CSS tokens (LOCKED)
 Define these once and respect across all divisions (flattened output still honors them):
@@ -121,6 +124,5 @@ Define these once and respect across all divisions (flattened output still honor
 
 
 ## Deliverables
-- Every Pull Request created by Codex must attach a **`public_html.zip`** artifact containing the deploy‑ready folder for Hostinger upload.
 - This artifact must reflect the full output after tasks are executed (headers/footers un‑hardcoded, CSS flattened, branding/images corrected).
 - Purpose: allow direct download/upload to Hostinger without needing to pull or rebuild locally.
