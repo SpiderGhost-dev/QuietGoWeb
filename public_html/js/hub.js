@@ -69,10 +69,14 @@ function updateUserInfo() {
             const avatarMobile = document.getElementById('userAvatarMobile');
             if (avatar) {
                 avatar.src = userData.profileImageUrl;
+                avatar.removeAttribute('hidden');
+                avatar.hidden = false;
                 avatar.style.display = 'block';
             }
             if (avatarMobile) {
                 avatarMobile.src = userData.profileImageUrl;
+                avatarMobile.removeAttribute('hidden');
+                avatarMobile.hidden = false;
                 avatarMobile.style.display = 'block';
             }
         }
