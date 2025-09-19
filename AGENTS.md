@@ -123,6 +123,7 @@ Define these once and respect across all divisions (flattened output still honor
 **Principle:** Apps lead; site augments—stores knowledge, visualizes in comfort, keeps everything organized.
 
 
-## Deliverables
-- This artifact must reflect the full output after tasks are executed (headers/footers un‑hardcoded, CSS flattened, branding/images corrected).
-- Purpose: allow direct download/upload to Hostinger without needing to pull or rebuild locally.
+## Wrap-Up
+- Complete all QA checks (PHP lint, link validation, branding/asset verification, CSS review) and ensure they pass.
+- Commit with the scoped prefixes above and confirm the worktree is clean before wrapping.
+- Prepare the PR summary mapping acceptance bullets to the updated files—delivery happens through the repo (no archives or zips).
