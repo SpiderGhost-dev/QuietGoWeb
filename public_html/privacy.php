@@ -1,182 +1,64 @@
+<?php $pageTitle = 'QuietGo Privacy & Terms'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy & Terms - QuietGo</title>
-    <meta name="description" content="QuietGo Privacy Policy, Terms of Service, and HIPAA compliance information.">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@400;600;700&amp;display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logo-graphic_1757613896603.png">
-<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
-<script src="/js/site.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo $pageTitle; ?></title>
+  <meta name="description" content="QuietGo Privacy Policy, Terms of Service, and HIPAA notice.">
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/css/public.css">
+  <script src="/js/site.js" defer></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="nav-brand">
-                    <img src="assets/logo-graphic_1757613896603.png" alt="QuietGo Logo">
-                    <div>
-                        <span class="quietgo-brand">
-                            <span class="quiet">Quiet</span><span class="go">Go</span>
-                        </span>
-                        <span class="muted" style="margin-left: 8px; font-size: 0.875rem;">Legal</span>
-                    </div>
-                </div>
-                
-                <div class="nav-links">
-                    <a href="index.php" class="nav-link">Home</a>
-                    <button class="nav-link" onclick="scrollToSection('privacy')">Privacy</button>
-                    <button class="nav-link" onclick="scrollToSection('terms')">Terms</button>
-                    <button class="nav-link" onclick="scrollToSection('hipaa')">HIPAA</button>
-                </div>
-                
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                    <svg class="icon" viewBox="0 0 24 24">
-                        <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
+<?php include __DIR__ . '/includes/header-public.php'; ?>
+<main>
+  <section class="section hero legal-hero" id="privacy">
+    <div class="container narrow">
+      <p class="eyebrow">Privacy &amp; legal</p>
+      <h1>We keep your health story yours</h1>
+      <p class="lead">QuietGo protects your data with HIPAA-aware infrastructure, encrypted storage, and strict sharing controls. These policies explain how.</p>
+    </div>
+  </section>
 
-            <!-- Mobile Menu -->
-            <div class="mobile-menu" id="mobileMenu">
-                <a href="index.php" class="nav-link">Home</a>
-                <button class="nav-link" onclick="scrollToSection('privacy')">Privacy</button>
-                <button class="nav-link" onclick="scrollToSection('terms')">Terms</button>
-                <button class="nav-link" onclick="scrollToSection('hipaa')">HIPAA</button>
-            </div>
-        </div>
-    </nav>
+  <section class="section legal-section" id="policy">
+    <div class="container narrow">
+      <h2>Privacy Policy</h2>
+      <p class="subhead">Last updated: January 2024</p>
+      <h3>Data we collect</h3>
+      <p>We collect only what is necessary to deliver QuietGo services:</p>
+      <ul>
+        <li>Entries you log in the mobile apps or Hub, including stool observations, meals, symptoms, photos, and notes.</li>
+        <li>Account details such as your name, email address, and subscription plan.</li>
+        <li>Usage metrics that help us improve performance and reliability.</li>
+      </ul>
+      <h3>How we use data</h3>
+      <p>Your information is used to sync entries across devices, surface personalised insights, and power exports you explicitly generate. We never sell your data or use it for advertising.</p>
+      <h3>Data retention &amp; deletion</h3>
+      <p>You control your data. Delete an entry to remove it from all surfaces. Contact <a href="mailto:privacy@quietgo.com">privacy@quietgo.com</a> for account deletion requests.</p>
+    </div>
+  </section>
 
-    <!-- Hero Section -->
-    <section class="section-hero">
-        <div class="container text-center">
-            <h1 class="hero-title" style="font-size: 2.5rem;">Privacy & Legal</h1>
-            <p class="hero-subtitle">Your privacy and security are our top priorities</p>
-        </div>
-    </section>
+  <section class="section legal-section alt" id="terms">
+    <div class="container narrow">
+      <h2>Terms of Service</h2>
+      <p>QuietGo is a general wellness tool. It does not diagnose, treat, cure, or prevent disease, and it should not replace guidance from qualified healthcare professionals.</p>
+      <ul>
+        <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
+        <li>Exports are intended for sharing with clinicians you trust. Always review before distributing.</li>
+        <li>We may update these terms as our services evolve; material changes will be communicated in-app or via email.</li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- Privacy Policy -->
-    <section id="privacy" class="section">
-        <div class="container" style="max-width: 800px;">
-            <h2>Privacy Policy</h2>
-            <p class="subheading">Last updated: January 2024</p>
-            
-            <div style="margin-top: 32px;">
-                <h3>Data Collection</h3>
-                <p>QuietGo collects only the minimum data necessary to provide our digestive health tracking services. This includes:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>Health data you voluntarily log (stool observations, meal photos, symptoms)</li>
-                    <li>Account information (email address, subscription status)</li>
-                    <li>App usage analytics (anonymized and aggregated)</li>
-                </ul>
-                
-                <h3>Data Protection</h3>
-                <p>Your health data is protected with:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>End-to-end encryption for all sensitive information</li>
-                    <li>Photos automatically deleted after AI analysis (unless you choose to save them)</li>
-                    <li>No sharing with third parties without explicit consent</li>
-                    <li>HIPAA-aware design principles</li>
-                </ul>
-                
-                <h3>Your Rights</h3>
-                <p>You have the right to:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>Access all your stored data</li>
-                    <li>Export your data in standard formats</li>
-                    <li>Delete your account and all associated data</li>
-                    <li>Revoke sharing permissions at any time</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Terms of Service -->
-    <section id="terms" class="section">
-        <div class="container" style="max-width: 800px;">
-            <h2>Terms of Service</h2>
-            <p class="subheading">Last updated: January 2024</p>
-            
-            <div style="margin-top: 32px;">
-                <h3>Service Description</h3>
-                <p>QuietGo provides digital tools for tracking digestive health patterns. Our service is for general wellness purposes and is not intended as medical advice, diagnosis, or treatment.</p>
-                
-                <h3>User Responsibilities</h3>
-                <p>By using QuietGo, you agree to:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>Use the service for personal, non-commercial purposes</li>
-                    <li>Provide accurate information</li>
-                    <li>Consult healthcare professionals for medical decisions</li>
-                    <li>Not share your account credentials</li>
-                </ul>
-                
-                <h3>Subscription Terms</h3>
-                <p>Subscription details:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>Monthly and annual billing options available</li>
-                    <li>Cancel anytime through the app or by contacting support</li>
-                    <li>Refunds processed according to app store policies</li>
-                    <li>Features may change with notice to subscribers</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- HIPAA Notice -->
-    <section id="hipaa" class="section">
-        <div class="container" style="max-width: 800px;">
-            <h2>HIPAA Compliance</h2>
-            <p class="subheading">Healthcare privacy standards</p>
-            
-            <div style="margin-top: 32px;">
-                <h3>HIPAA-Aware Design</h3>
-                <p>While QuietGo is not a covered entity under HIPAA, we follow HIPAA-inspired practices:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>Minimal data collection and storage</li>
-                    <li>Strong encryption and security measures</li>
-                    <li>Clear consent processes for data sharing</li>
-                    <li>User control over data retention and deletion</li>
-                </ul>
-                
-                <h3>Data Sharing</h3>
-                <p>When you choose to share data with friends, family, trainers, or healthcare providers:</p>
-                <ul style="margin: 16px 0; padding-left: 24px;">
-                    <li>You control what data is shared and with whom</li>
-                    <li>Sharing can be revoked at any time</li>
-                    <li>Data is provided in formats useful for clinical review</li>
-                    <li>No photos are shared by default</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="section">
-        <div class="container text-center" style="max-width: 600px;">
-            <h2>Questions?</h2>
-            <p>If you have questions about these policies or need to exercise your data rights, contact us at:</p>
-            <p style="margin-top: 16px;">
-                <strong>privacy@quietgo.com</strong>
-            </p>
-            <a href="index.php" class="btn btn-primary" style="margin-top: 24px;">Back to Home</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <?php include $_SERVER['DOCUMENT_ROOT'].'/includes/footer-public.php'; ?>
-
-    <script src="js/site.js"></script>
+  <section class="section legal-section" id="hipaa">
+    <div class="container narrow">
+      <h2>HIPAA Notice</h2>
+      <p>QuietGo implements administrative, physical, and technical safeguards aligned with HIPAA guidelines. We sign BAAs with partners that receive Protected Health Information from QuietGo customers.</p>
+      <p>If you believe your privacy has been compromised, notify us immediately at <a href="mailto:security@quietgo.com">security@quietgo.com</a>.</p>
+    </div>
+  </section>
+</main>
+<?php include __DIR__ . '/includes/footer-public.php'; ?>
 </body>
 </html>

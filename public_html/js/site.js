@@ -4,9 +4,14 @@
 // App configuration
 
 // Mobile menu functionality
-function toggleMobileMenu() {
+function toggleMobileMenu(button) {
     const mobileMenu = document.getElementById('mobileMenu');
+    if (!mobileMenu) return;
     mobileMenu.classList.toggle('open');
+    if (button) {
+        const expanded = mobileMenu.classList.contains('open');
+        button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
 }
 
 // Smooth scrolling to sections
@@ -20,19 +25,25 @@ function scrollToSection(sectionId) {
     }
     // Close mobile menu if open
     const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenu.classList.remove('open');
+    if (mobileMenu) {
+        mobileMenu.classList.remove('open');
+    }
+    const activeToggle = document.querySelector(".mobile-menu-btn[aria-expanded=\"true\"]");
+    if (activeToggle) {
+        activeToggle.setAttribute('aria-expanded', 'false');
+    }
 }
 
 // Handle login redirect
 function handleLogin() {
     // Redirect to QuietGo Hub or authentication
-    window.location.href = '/api/login';
+    window.location.href = '/hub/login.php';
 }
 
 // Handle get started action
 function handleGetStarted() {
     // Redirect to sign up or login
-    window.location.href = '/api/login';
+    window.location.href = '/hub/login.php';
 }
 
 // Handle app store links
@@ -56,8 +67,12 @@ function setupKeyboardEvents() {
         // Close mobile menu on Escape key
         if (e.key === 'Escape') {
             const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu.classList.contains('open')) {
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
                 mobileMenu.classList.remove('open');
+                const activeToggle = document.querySelector(".mobile-menu-btn[aria-expanded=\"true\"]");
+                if (activeToggle) {
+                    activeToggle.setAttribute('aria-expanded', 'false');
+                }
             }
         }
     });
@@ -118,6 +133,12 @@ handlePlayStore = function() {
     originalHandlePlayStore();
 };
 
+
+function logout() {
+    trackButtonClick('logout');
+    try { localStorage.removeItem('admin_logged_in'); } catch (e) {}
+    window.location.href = '/admin/login.php';
+}
 // Add smooth reveal animations on scroll (optional enhancement)
 function addScrollAnimations() {
     const observerOptions = {

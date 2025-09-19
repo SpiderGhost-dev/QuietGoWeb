@@ -1,45 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuietGo Admin Login</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 50px; background: #f0f0f0; }
-        .login-card { background: white; padding: 30px; border-radius: 8px; max-width: 400px; margin: 0 auto; }
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
-        button { width: 100%; padding: 10px; background: #2563eb; color: white; border: none; border-radius: 4px; }
-    </style>
-<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
-<script src="/js/site.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuietGo Admin Login</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="/admin/css/admin.css">
+  <script src="/js/site.js" defer></script>
 </head>
-<body>
-    <div class="login-card">
-        <h1>QuietGo Admin</h1>
-        <form id="loginForm">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+<body class="admin-login">
+<?php include __DIR__ . '/../includes/header-admin.php'; ?>
+<main>
+  <section class="section login-section">
+    <div class="container narrow">
+      <div class="login-card">
+        <header>
+          <img src="/assets/images/logo-graphic.png" alt="QuietGo logo" width="48" height="48" loading="lazy">
+          <h1>Admin access</h1>
+          <p class="lead">Use your operations credentials to sign in. Multi-factor authentication is required in production.</p>
+        </header>
+        <form class="login-form" id="adminLoginForm">
+          <label for="adminUser">Username</label>
+          <input id="adminUser" type="text" name="username" required autocomplete="username">
+          <label for="adminPass">Password</label>
+          <input id="adminPass" type="password" name="password" required autocomplete="current-password">
+          <button class="btn btn-primary" type="submit">Sign in</button>
+          <p class="form-note">Demo credentials: admin / admin123</p>
+          <p class="error-message" id="adminError" role="alert"></p>
         </form>
+      </div>
     </div>
-    
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if ((username === 'spiderghost' && password === 'TempAdmin2024') || 
-                (username === 'admin' && password === 'admin123')) {
-                localStorage.setItem('admin_logged_in', 'true');
-                window.location.href="/admin/dashboard.php";
-            } else {
-                alert('Invalid credentials');
-            }
-        });
-    </script>
+  </section>
+</main>
+<?php include __DIR__ . '/../includes/footer-admin.php'; ?>
+<script>
+  document.getElementById('adminLoginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const user = document.getElementById('adminUser').value.trim();
+    const pass = document.getElementById('adminPass').value.trim();
+    const error = document.getElementById('adminError');
+    if ((user === 'spiderghost' && pass === 'TempAdmin2024') || (user === 'admin' && pass === 'admin123')) {
+      localStorage.setItem('admin_logged_in', 'true');
+      window.location.href = '/admin/dashboard.php';
+    } else {
+      error.textContent = 'Invalid credentials. Please try again.';
+    }
+  });
+</script>
 </body>
 </html>
