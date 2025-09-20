@@ -17,16 +17,16 @@
     <div class="container narrow">
       <div class="login-card">
         <header>
-          <img src="/assets/images/logo-graphic.png" alt="QuietGo logo" width="48" height="48" loading="lazy">
+          <img src="/assets/images/logo-graphic.png" alt="QuietGo logo" width="56" height="56" loading="lazy">
           <h1>Access the QuietGo Hub</h1>
-          <p class="lead">Enter your email to receive a secure sign-in link. We use passwordless authentication for privacy.</p>
+          <p>Sign in with the same email you use in the QuietGo mobile app. We’ll email you a secure one-time link to complete login.</p>
         </header>
         <form class="login-form" method="post" action="#" onsubmit="event.preventDefault(); trackButtonClick('hub_login_request'); alert('A secure sign-in link will be delivered once the integration is live.');">
           <label for="loginEmail">Email address</label>
           <input id="loginEmail" type="email" name="email" required placeholder="you@example.com">
-          <button class="btn btn-primary" type="submit">Send link</button>
+          <button class="btn btn-primary btn-large" type="submit">Send sign-in link</button>
         </form>
-        <p class="support-note">Need help? Email <a href="mailto:support@quietgo.com">support@quietgo.com</a>.</p>
+        <p class="support-note">Need help? Email <a href="mailto:support@quietgo.com">support@quietgo.com</a> and our team will respond within one business day.</p>
       </div>
     </div>
   </section>

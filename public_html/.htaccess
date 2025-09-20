@@ -1,0 +1,6 @@
+# Redirect legacy HTML routes to current PHP endpoints
+Redirect 301 /index.html /index.php
+Redirect 301 /privacy.html /privacy.php
+Redirect 301 /hub.html /hub/
+Redirect 301 /admin/login.html /admin/login.php
+Redirect 301 /admin/dashboard.html /admin/dashboard.php
