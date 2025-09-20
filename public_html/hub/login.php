@@ -36,7 +36,7 @@ $emailValue = isset($_POST['email']) ? (string) $_POST['email'] : '';
           <input id="loginPassword" type="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
           <div class="login-actions" style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); align-items: center;">
             <button class="btn btn-primary btn-large" type="submit" name="action" value="login">Sign in</button>
-            <button class="btn btn-outline" type="submit" name="action" value="forgot" formnovalidate>Forgot password?</button>
+            <button class="btn btn-outline" type="submit" name="action" value="forgot" formnovalidate="formnovalidate">Forgot password?</button>
           </div>
 <?php if ($forgotSuccess): ?>
           <p class="support-note" role="status" style="color: var(--accent-color); margin-top: var(--spacing-sm);">If your email is on file, we'll send password reset instructions shortly.</p>
