@@ -1,18 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap');
 
 :root {
-  --text-color: #ecece6;
-  --heading-color: #e6d7c3;
-  --subheading-color: #f3ebe1;
-  --green-color: #8c9d8a;
-  --accent-color: #bdcdde;
-  --accent-dark: #8fa3b8;
-  --quiet-color: #ded4c4;
-  --go-color: #cb978a;
-  --bg-color: #000000;
-  --card-bg: #1a1a1a;
-  --border-color: #333333;
-  --muted-text: #999999;
+  --color-cream: #f5f5dc;
+  --color-sage: #6c985f;
+  --color-rose: #d4a799;
+  --color-slate: #6a7ba2;
+  --color-steel: #4682b4;
+  --color-teal: #3c9d9b;
+  --color-midnight: #191970;
+  --text-color: var(--color-cream);
+  --heading-color: var(--color-cream);
+  --subheading-color: rgba(245, 245, 220, 0.82);
+  --green-color: var(--color-sage);
+  --accent-color: var(--color-teal);
+  --accent-dark: var(--color-steel);
+  --quiet-color: var(--color-rose);
+  --go-color: var(--color-teal);
+  --bg-color: var(--color-midnight);
+  --card-bg: rgba(25, 25, 112, 0.82);
+  --border-color: rgba(245, 245, 220, 0.18);
+  --muted-text: rgba(245, 245, 220, 0.7);
+  --teal-soft: rgba(60, 157, 155, 0.18);
+  --teal-strong: rgba(60, 157, 155, 0.32);
+  --steel-soft: rgba(70, 130, 180, 0.28);
+  --steel-faint: rgba(70, 130, 180, 0.16);
+  --steel-outline: rgba(70, 130, 180, 0.35);
+  --steel-strong: rgba(70, 130, 180, 0.45);
+  --rose-soft: rgba(212, 167, 153, 0.22);
+  --rose-strong: rgba(212, 167, 153, 0.4);
+  --sage-soft: rgba(108, 152, 95, 0.22);
+  --sage-strong: rgba(108, 152, 95, 0.4);
   --border-radius: 12px;
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -152,8 +169,8 @@ button {
 }
 
 .logout-btn {
-  background: #dc2626;
-  color: #ffffff;
+  background: var(--color-rose);
+  color: var(--color-midnight);
   border: none;
   border-radius: var(--border-radius);
   padding: var(--spacing-xs) var(--spacing-md);
@@ -164,7 +181,7 @@ button {
 
 .logout-btn:hover,
 .logout-btn:focus {
-  background: #b91c1c;
+  background: rgba(212, 167, 153, 0.82);
 }
 
 .mobile-menu-btn {
@@ -336,13 +353,13 @@ button {
 
 .nav-item:hover,
 .nav-item:focus {
-  background: rgba(189, 205, 222, 0.08);
+  background: var(--steel-faint);
   color: var(--accent-color);
   border-left-color: var(--accent-color);
 }
 
 .nav-item.active {
-  background: rgba(189, 205, 222, 0.15);
+  background: var(--steel-soft);
   color: var(--accent-color);
   border-left-color: var(--accent-color);
   font-weight: 600;
@@ -402,7 +419,7 @@ button {
 }
 
 .stat-card.featured {
-  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(189, 205, 222, 0.15) 100%);
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--steel-soft) 100%);
   border-color: var(--accent-color);
 }
 
@@ -420,7 +437,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(189, 205, 222, 0.12);
+  background: var(--teal-soft);
   font-size: 1.5rem;
 }
 
@@ -448,7 +465,7 @@ button {
 }
 
 .stat-change.negative {
-  color: #ef4444;
+  color: var(--color-rose);
 }
 
 .data-section {
@@ -460,7 +477,7 @@ button {
 }
 
 .section-header {
-  background: rgba(39, 39, 42, 0.5);
+  background: rgba(25, 25, 112, 0.5);
   padding: var(--spacing-lg);
   border-bottom: 1px solid var(--border-color);
 }
@@ -490,7 +507,7 @@ button {
 }
 
 .data-table th {
-  background: rgba(39, 39, 42, 0.3);
+  background: rgba(25, 25, 112, 0.45);
   color: var(--heading-color);
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -498,7 +515,7 @@ button {
 }
 
 .data-table tbody tr:hover {
-  background: rgba(189, 205, 222, 0.05);
+  background: var(--steel-faint);
 }
 
 .status-badge {
@@ -513,17 +530,17 @@ button {
 }
 
 .status-free {
-  background-color: rgba(153, 153, 153, 0.2);
+  background-color: rgba(25, 25, 112, 0.35);
   color: var(--muted-text);
 }
 
 .status-pro {
-  background-color: rgba(140, 157, 138, 0.2);
+  background-color: var(--sage-soft);
   color: var(--green-color);
 }
 
 .status-active {
-  background-color: rgba(189, 205, 222, 0.2);
+  background-color: var(--teal-soft);
   color: var(--accent-color);
 }
 
@@ -567,8 +584,8 @@ button {
 }
 
 .error-state {
-  background: rgba(239, 68, 68, 0.12);
-  color: #fca5a5;
+  background: var(--rose-soft);
+  color: var(--color-rose);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius);
   margin-bottom: var(--spacing-lg);
@@ -576,12 +593,12 @@ button {
 
 .admin-login-page .site-header,
 .admin-login-page .site-footer {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6));
+  background: linear-gradient(180deg, rgba(25, 25, 112, 0.9), rgba(25, 25, 112, 0.6));
 }
 
 .login-section {
   padding: var(--spacing-3xl) 0;
-  background: radial-gradient(circle at top, rgba(189, 205, 222, 0.08), transparent 55%);
+  background: radial-gradient(circle at top, var(--steel-faint), transparent 55%);
 }
 
 .login-card {
@@ -634,12 +651,12 @@ button {
   padding: 0.8rem;
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(25, 25, 112, 0.5);
   color: var(--text-color);
 }
 
 .login-form input:focus {
-  outline: 2px solid rgba(189, 205, 222, 0.4);
+  outline: 2px solid var(--teal-soft);
   border-color: var(--accent-color);
 }
 
@@ -650,7 +667,7 @@ button {
 
 .error-message {
   min-height: 1.2rem;
-  color: #ff8a80;
+  color: var(--color-rose);
   font-size: 0.85rem;
 }
 
