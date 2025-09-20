@@ -132,6 +132,7 @@ input {
 
 .container.narrow {
   max-width: 640px;
+
 }
 
 .text-center {
@@ -141,6 +142,7 @@ input {
 .text-right {
   text-align: right;
 }
+
 
 .muted {
   color: var(--muted-text);
@@ -657,6 +659,7 @@ header {
 
 .recent-files {
   margin-top: var(--spacing-2xl);
+
 }
 
 .recent-files-list {
@@ -664,6 +667,7 @@ header {
   flex-direction: column;
   gap: var(--spacing-md);
 }
+
 
 .recent-files-list .file-row {
   display: flex;
@@ -750,6 +754,7 @@ header {
 }
 
 .footer-links a {
+
   color: var(--muted-text);
   font-size: 0.9rem;
 }
@@ -774,6 +779,7 @@ header {
   gap: var(--spacing-md);
   align-items: center;
 }
+
 
 /* Login */
 body.hub-login main {
@@ -893,6 +899,7 @@ body.hub-login main {
 .support-note {
   font-size: 0.9rem;
   color: var(--muted-text);
+
 }
 
 .support-note a {
@@ -902,6 +909,7 @@ body.hub-login main {
 .support-note a:hover,
 .support-note a:focus {
   color: var(--text-color);
+
 }
 
 /* Responsive */
@@ -922,12 +930,14 @@ body.hub-login main {
 @media (max-width: 768px) {
   .nav-links,
   .nav-profile {
+
     display: none;
   }
 
   .mobile-menu-btn {
     display: inline-flex;
   }
+
 
   .container {
     padding: 0 var(--spacing-md);
@@ -942,8 +952,7 @@ body.hub-login main {
   }
 
   .grid-3 {
-    grid-template-columns: 1fr;
-  }
+
 
   .grid-2 {
     grid-template-columns: 1fr;
@@ -966,6 +975,79 @@ body.hub-login main {
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  .mobile-menu {
+    padding-bottom: var(--spacing-md);
+  }
+
+  .mobile-menu .nav-link,
+  .mobile-menu .btn {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .hero-card {
+    width: 100%;
+  }
+
+  .hero-metrics {
+    gap: var(--spacing-sm);
+  }
+
+  .login-card {
+    padding: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .hero-wrap {
+    flex-direction: column;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: var(--spacing-lg);
+  }
+
+  .footer-top {
+    flex-direction: column;
+
+    align-items: center;
+
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+
+    align-items: center;
+    text-align: center;
+
   }
 
   .mobile-menu {

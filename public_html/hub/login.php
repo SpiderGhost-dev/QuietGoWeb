@@ -105,7 +105,9 @@ $loginEmail = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
           <input id="loginPassword" type="password" name="password" required placeholder="Enter your password" autocomplete="current-password">
           <div class="form-actions">
             <button class="btn btn-primary btn-large" type="submit" name="action" value="login">Sign in</button>
+
             <button class="btn btn-ghost" type="submit" name="action" value="forgot" formnovalidate>Forgot password?</button>
+
           </div>
         </form>
         <p class="support-note">QuietGo Hub access is available to current subscribers. Need help? Email <a href="mailto:support@quietgo.com">support@quietgo.com</a> and our team will respond within one business day.</p>
