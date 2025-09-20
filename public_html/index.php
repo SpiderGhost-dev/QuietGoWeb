@@ -159,7 +159,7 @@
               iCloud sync
             </li>
           </ul>
-          <button class="btn btn-primary" type="button" onclick="handleGetStarted()">Download on App Store</button>
+          <button class="btn btn-primary" type="button" onclick="handleAppStore()">Download on App Store</button>
         </article>
 
         <article class="card pricing-card">
@@ -190,7 +190,7 @@
               Cloud backup
             </li>
           </ul>
-          <button class="btn btn-accent" type="button" onclick="handleGetStarted()">Get it on Google Play</button>
+          <button class="btn btn-accent" type="button" onclick="handlePlayStore()">Get it on Google Play</button>
         </article>
       </div>
 
