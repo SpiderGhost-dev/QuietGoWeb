@@ -132,6 +132,7 @@ input {
 
 .container.narrow {
   max-width: 640px;
+
 }
 
 .text-center {
@@ -141,6 +142,7 @@ input {
 .text-right {
   text-align: right;
 }
+
 
 .muted {
   color: var(--muted-text);
@@ -657,6 +659,7 @@ header {
 
 .recent-files {
   margin-top: var(--spacing-2xl);
+
 }
 
 .recent-files-list {
@@ -664,6 +667,7 @@ header {
   flex-direction: column;
   gap: var(--spacing-md);
 }
+
 
 .recent-files-list .file-row {
   display: flex;
@@ -750,23 +754,6 @@ header {
 }
 
 .footer-links a {
-
-  color: var(--muted-text);
-  font-size: 0.9rem;
-}
-
-.footer-links a:hover,
-.footer-links a:focus {
-  color: var(--text-color);
-}
-
-.footer-bottom {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--spacing-md);
-  font-size: 0.9rem;
 
   color: var(--muted-text);
   font-size: 0.9rem;
@@ -922,6 +909,7 @@ body.hub-login main {
 .support-note a:hover,
 .support-note a:focus {
   color: var(--text-color);
+
 }
 
 /* Responsive */
@@ -946,10 +934,6 @@ body.hub-login main {
     display: none;
   }
 
-  .nav-profile {
-    display: none;
-  }
-
   .mobile-menu-btn {
     display: inline-flex;
   }
@@ -969,8 +953,6 @@ body.hub-login main {
 
   .grid-3 {
 
-    grid-template-columns: 1fr;
-  }
 
   .grid-2 {
     grid-template-columns: 1fr;
@@ -1040,6 +1022,7 @@ body.hub-login main {
     grid-template-columns: 1fr;
   }
 
+
   .grid-2 {
     grid-template-columns: 1fr;
   }
@@ -1054,12 +1037,17 @@ body.hub-login main {
 
   .footer-top {
     flex-direction: column;
-    align-items: flex-start;
+
+    align-items: center;
+
   }
 
   .footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
+
+    align-items: center;
+    text-align: center;
+
   }
 
   .mobile-menu {
