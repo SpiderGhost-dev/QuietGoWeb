@@ -2,23 +2,35 @@
 
 /* ===== tokens ===== */
 :root {
-  --quiet-color: #ded4c4;
-  --go-color: #cb978a;
-  --header-bg: #000000;
-  --footer-bg: #000000;
-  --bg-page: #0a0a0a;
-  --bg-section-1: #0d0d0d;
-  --bg-section-2: #111111;
-  --bg-section-3: #151515;
-  --text-color: #ecece6;
-  --muted-text: #b3aca3;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --accent: #bdcdde;
-  --accent-muted: rgba(189, 205, 222, 0.1);
-  --green-color: #8c9d8a;
+  --color-cream: #f5f5dc;
+  --color-sage: #6c985f;
+  --color-rose: #d4a799;
+  --color-slate: #6a7ba2;
+  --color-steel: #4682b4;
+  --color-teal: #3c9d9b;
+  --color-midnight: #191970;
+  --quiet-color: var(--color-rose);
+  --go-color: var(--color-teal);
+  --header-bg: rgba(25, 25, 112, 0.96);
+  --footer-bg: rgba(25, 25, 112, 0.96);
+  --bg-page: var(--color-midnight);
+  --bg-section-1: rgba(25, 25, 112, 0.9);
+  --bg-section-2: rgba(70, 130, 180, 0.18);
+  --bg-section-3: rgba(60, 157, 155, 0.18);
+  --text-color: var(--color-cream);
+  --muted-text: rgba(245, 245, 220, 0.72);
+  --border-color: rgba(245, 245, 220, 0.16);
+  --accent: var(--color-teal);
+  --accent-muted: rgba(60, 157, 155, 0.16);
+  --green-color: var(--color-sage);
   --accent-color: var(--accent);
-  --accent-dark: #8fa3b8;
-  --card-bg: var(--bg-section-1);
+  --accent-dark: var(--color-steel);
+  --card-bg: rgba(25, 25, 112, 0.78);
+  --teal-soft: rgba(60, 157, 155, 0.24);
+  --steel-soft: rgba(70, 130, 180, 0.24);
+  --steel-strong: rgba(70, 130, 180, 0.4);
+  --sage-soft: rgba(108, 152, 95, 0.22);
+  --rose-soft: rgba(212, 167, 153, 0.22);
   --border-radius: var(--radius-md);
   --font-sans: 'Inter', sans-serif;
   --font-serif: 'Playfair Display', serif;
@@ -184,7 +196,7 @@ ul {
 
 .btn-primary {
   background: var(--go-color);
-  color: #0a0a0a;
+  color: var(--color-midnight);
 }
 
 .btn-primary:hover {
@@ -192,18 +204,18 @@ ul {
 }
 
 .btn-outline {
-  border-color: rgba(255, 255, 255, 0.24);
+  border-color: rgba(245, 245, 220, 0.24);
   color: var(--text-color);
   background: transparent;
 }
 
 .btn-outline:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(245, 245, 220, 0.12);
 }
 
 .btn-accent {
   background: var(--accent-color);
-  color: #0a0a0a;
+  color: var(--color-midnight);
 }
 
 .btn-accent:hover {
@@ -218,7 +230,7 @@ ul {
   gap: var(--space-md);
   padding: var(--space-md) var(--space-xl);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(245, 245, 220, 0.08);
   border: 1px solid var(--border-color);
   color: var(--text-color);
   font-weight: 600;
@@ -226,7 +238,7 @@ ul {
 }
 
 .app-store-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(245, 245, 220, 0.14);
 }
 
 .app-store-btn svg {
@@ -351,12 +363,12 @@ ul {
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-md);
-  background: rgba(140, 157, 138, 0.12);
+  background: var(--sage-soft);
   color: var(--green-color);
 }
 
 .card-icon.accent {
-  background: rgba(189, 205, 222, 0.12);
+  background: var(--steel-soft);
   color: var(--accent-color);
 }
 
@@ -381,7 +393,7 @@ ul {
 
 .badge-accent {
   background: var(--accent-color);
-  color: #0a0a0a;
+  color: var(--color-midnight);
 }
 
 .checklist {
@@ -724,7 +736,21 @@ ul {
 }
 
 /* ===== responsive ===== */
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 3.25rem);
+  }
+
+  .hero-description {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+
   .nav-links {
     display: none;
   }
@@ -737,6 +763,11 @@ ul {
     margin-top: var(--space-sm);
   }
 
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .hero-grid,
   .feature-grid,
   .features-grid,
@@ -747,16 +778,12 @@ ul {
     grid-template-columns: 1fr;
   }
 
-  .hero-stats {
-    flex-direction: column;
-  }
-
   .section-hero {
     padding: var(--space-xl) 0;
   }
 
   .hero-title {
-    font-size: clamp(2.25rem, 10vw, 3rem);
+    font-size: clamp(2.25rem, 9vw, 3rem);
   }
 
   .hero-description {
@@ -765,6 +792,7 @@ ul {
 
   .app-store-btn {
     width: 100%;
+    justify-content: center;
   }
 
   .footer-grid {
@@ -773,6 +801,7 @@ ul {
 
   .footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 }
