@@ -827,6 +827,52 @@ body.hub-login main {
   box-shadow: 0 0 0 3px rgba(189, 205, 222, 0.25);
 }
 
+.alert {
+  border-radius: var(--border-radius-sm);
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.alert + .alert {
+  margin-top: var(--spacing-sm);
+}
+
+.alert-error {
+  background: rgba(203, 151, 138, 0.18);
+  border: 1px solid rgba(203, 151, 138, 0.45);
+  color: var(--go-color);
+}
+
+.alert-success {
+  background: rgba(140, 157, 138, 0.18);
+  border: 1px solid rgba(140, 157, 138, 0.4);
+  color: var(--green-color);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 0;
+  color: var(--accent-color);
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus {
+  color: var(--text-color);
+}
+
 .support-note {
   font-size: 0.9rem;
   color: var(--muted-text);

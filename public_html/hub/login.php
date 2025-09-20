@@ -1,11 +1,74 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
+if (session_status() === PHP_SESSION_NONE) { session_start(); }
+
+require_once __DIR__ . '/../includes/hub-auth.php';
+require_once __DIR__ . '/../includes/impersonation.php';
+
+$feedback = [
+  'error' => null,
+  'success' => null,
+];
+
+$ipAddress = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+
+if (isset($_GET['logout'])) {
+  hub_logout();
+  if (is_impersonating()) {
+    unset($_SESSION['impersonated_email']);
+  }
+  $feedback['success'] = 'You have been signed out of the QuietGo Hub.';
 }
 
-$submittedAction = $_POST['action'] ?? null;
-$forgotSuccess = $_SERVER['REQUEST_METHOD'] === 'POST' && $submittedAction === 'forgot';
-$emailValue = isset($_POST['email']) ? (string) $_POST['email'] : '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $action = $_POST['action'] ?? 'login';
+  $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+  if (!$email) {
+    $feedback['error'] = 'Enter a valid email address to continue.';
+    hub_record_audit($_POST['email'] ?? '', 'invalid_email');
+  } elseif ($action === 'forgot') {
+    hub_dispatch_password_reset($email);
+    $feedback['success'] = 'If that email is on file, you’ll receive reset instructions through the QuietGo app shortly.';
+  } else {
+    if (hub_rate_limit_exceeded($ipAddress)) {
+      $feedback['error'] = 'Too many login attempts. Please wait 15 minutes before trying again.';
+      hub_record_audit($email, 'rate_limited');
+    } else {
+      $password = $_POST['password'] ?? '';
+
+      if (!$password) {
+        $feedback['error'] = 'Enter your password to sign in.';
+        hub_record_audit($email, 'missing_password');
+      } else {
+        $subscriber = hub_find_subscriber($email);
+
+        if (!$subscriber) {
+          hub_register_login_attempt($ipAddress);
+          $feedback['error'] = 'That email or password didn’t match our records. Please try again.';
+          hub_record_audit($email, 'unknown_user');
+        } elseif ($subscriber['subscription_status'] !== 'active') {
+          hub_register_login_attempt($ipAddress);
+          $feedback['error'] = 'QuietGo Hub is for subscribers. Please subscribe in the QuietGo app first.';
+          hub_record_audit($email, 'inactive_subscription', ['plan' => $subscriber['subscription_plan']]);
+        } elseif (!password_verify($password, $subscriber['password_hash'])) {
+          hub_register_login_attempt($ipAddress);
+          $feedback['error'] = 'That email or password didn’t match our records. Please try again.';
+          hub_record_audit($email, 'invalid_password');
+        } else {
+          hub_login($subscriber, $email);
+          hub_clear_attempts($ipAddress);
+          hub_record_audit($email, 'login_success', [
+            'plan' => $subscriber['subscription_plan'],
+          ]);
+          header('Location: /hub/');
+          exit;
+        }
+      }
+    }
+  }
+}
+
+$loginEmail = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,47 +90,29 @@ $emailValue = isset($_POST['email']) ? (string) $_POST['email'] : '';
         <header>
           <img src="/assets/images/logo-graphic.png" alt="QuietGo logo" width="56" height="56" loading="lazy">
           <h1>Access the QuietGo Hub</h1>
-          <p>Use the same email and password you set in the QuietGo app to sign in.</p>
+          <p>Use the same email and password you created in the QuietGo mobile app to continue to your Hub dashboard.</p>
         </header>
-        <form class="login-form" id="hubLoginForm" method="post" action="">
+        <?php if ($feedback['error']): ?>
+          <div class="alert alert-error" role="alert"><?php echo htmlspecialchars($feedback['error']); ?></div>
+        <?php endif; ?>
+        <?php if ($feedback['success']): ?>
+          <div class="alert alert-success" role="status"><?php echo htmlspecialchars($feedback['success']); ?></div>
+        <?php endif; ?>
+        <form class="login-form" method="post" action="/hub/login.php" onsubmit="trackButtonClick('hub_login_submit');">
           <label for="loginEmail">Email address</label>
-          <input id="loginEmail" type="email" name="email" required placeholder="you@example.com" value="<?php echo htmlspecialchars($emailValue, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
+          <input id="loginEmail" type="email" name="email" required placeholder="you@example.com" autocomplete="username" value="<?php echo $loginEmail; ?>">
           <label for="loginPassword">Password</label>
-          <input id="loginPassword" type="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
-          <div class="login-actions" style="display: flex; flex-wrap: wrap; gap: var(--spacing-sm); align-items: center;">
+          <input id="loginPassword" type="password" name="password" required placeholder="Enter your password" autocomplete="current-password">
+          <div class="form-actions">
             <button class="btn btn-primary btn-large" type="submit" name="action" value="login">Sign in</button>
-            <button class="btn btn-outline" type="submit" name="action" value="forgot" formnovalidate="formnovalidate">Forgot password?</button>
+            <button class="btn btn-ghost" type="submit" name="action" value="forgot">Forgot password?</button>
           </div>
-<?php if ($forgotSuccess): ?>
-          <p class="support-note" role="status" style="color: var(--accent-color); margin-top: var(--spacing-sm);">If your email is on file, we'll send password reset instructions shortly.</p>
-<?php endif; ?>
         </form>
-        <p class="support-note">Need help? Email <a href="mailto:support@quietgo.com">support@quietgo.com</a> and our team will respond within one business day.</p>
+        <p class="support-note">QuietGo Hub access is available to current subscribers. Need help? Email <a href="mailto:support@quietgo.com">support@quietgo.com</a> and our team will respond within one business day.</p>
       </div>
     </div>
   </section>
 </main>
 <?php include __DIR__ . '/../includes/footer-hub.php'; ?>
-<script>
-  (function () {
-    const form = document.getElementById('hubLoginForm');
-    if (!form) {
-      return;
-    }
-
-    form.addEventListener('submit', function (event) {
-      const submitter = event.submitter;
-      if (submitter && submitter.name === 'action' && submitter.value === 'forgot') {
-        return;
-      }
-
-      event.preventDefault();
-      if (typeof trackButtonClick === 'function') {
-        trackButtonClick('hub_login_request');
-      }
-      alert('A secure sign-in link will be delivered once the integration is live.');
-    });
-  })();
-</script>
 </body>
 </html>

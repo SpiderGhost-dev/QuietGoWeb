@@ -1,4 +1,57 @@
-<?php $pageTitle = 'QuietGo Hub — Sync & Manage Your Data'; ?>
+<?php
+require_once __DIR__ . '/../includes/hub-auth.php';
+require_once __DIR__ . '/../includes/impersonation.php';
+
+if (!hub_logged_in() && !is_impersonating()) {
+    header('Location: /hub/login.php');
+    exit;
+}
+
+$hubUser = hub_current_user();
+
+if (is_impersonating()) {
+    $impersonatedEmail = impersonated_email();
+    $impersonatedRecord = $impersonatedEmail ? hub_find_subscriber($impersonatedEmail) : null;
+    $hubUser = [
+        'email' => $impersonatedEmail,
+        'name' => $impersonatedRecord['name'] ?? ($impersonatedEmail ?: 'QuietGo Subscriber'),
+        'subscription_status' => $impersonatedRecord['subscription_status'] ?? 'active',
+        'subscription_plan' => $impersonatedRecord['subscription_plan'] ?? 'pro_monthly',
+        'subscription_label' => $impersonatedRecord['subscription_label'] ?? 'Pro',
+        'authenticated_at' => gmdate('c'),
+    ];
+}
+
+$pageTitle = 'QuietGo Hub — Sync & Manage Your Data';
+
+$displayName = 'Friend';
+$fullName = $hubUser['name'] ?? '';
+if ($fullName) {
+    $parts = preg_split('/\s+/', trim($fullName));
+    $displayName = $parts[0] ?? $fullName;
+} elseif (!empty($hubUser['email'])) {
+    $displayName = strtok($hubUser['email'], '@');
+}
+
+$planKey = $hubUser['subscription_plan'] ?? 'free';
+$planLabel = $hubUser['subscription_label'] ?? '';
+if (!$planLabel) {
+    $planLabel = match ($planKey) {
+        'pro_yearly' => 'Pro Annual',
+        'pro_monthly' => 'Pro Monthly',
+        default => 'Free plan',
+    };
+}
+$planClass = in_array($planKey, ['pro_monthly', 'pro_yearly'], true) ? 'status-pro' : 'status-free';
+$isActiveSubscriber = ($hubUser['subscription_status'] ?? '') === 'active' && $planClass === 'status-pro';
+$statusLabel = $isActiveSubscriber ? 'Active' : (($hubUser['subscription_status'] ?? '') === 'active' ? 'Active' : 'Requires subscription');
+$renewalLabel = $planClass === 'status-pro' ? 'Renews via app store' : 'Subscribe in QuietGo app';
+$lastVisit = !empty($hubUser['authenticated_at']) ? 'Signed in just now' : 'Last visit: Today';
+
+$subscriptionCtaLabel = $isActiveSubscriber ? 'Manage in app' : 'Upgrade in app';
+$subscriptionCtaClass = $isActiveSubscriber ? 'btn btn-outline btn-large' : 'btn btn-blue btn-large';
+$subscriptionDescription = $isActiveSubscriber ? 'Your Pro benefits are unlocked across QuietGo Hub and mobile.' : 'Unlock unlimited tracking, AI analysis, and premium exports.';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,10 +79,10 @@
         <div class="hero-wrap">
           <div class="hero-content">
             <p class="hero-kicker">QuietGo Hub</p>
-            <h1 class="hero-title">Welcome back, <span id="welcomeName">Friend</span>!</h1>
+            <h1 class="hero-title">Welcome back, <span id="welcomeName"><?php echo htmlspecialchars($displayName); ?></span>!</h1>
             <p class="hero-subtitle">Your digestive health insights are ready when you are. Sync entries, surface AI trends, and keep your care team up to date.</p>
             <div class="hero-metrics">
-              <span id="lastVisit">Last visit: Today</span>
+              <span id="lastVisit"><?php echo htmlspecialchars($lastVisit); ?></span>
               <span id="healthStreak">🔥 3 day tracking streak</span>
             </div>
           </div>
@@ -119,15 +172,15 @@
           </article>
           <aside class="card card-featured" data-testid="card-subscription">
             <div class="card-icon" aria-hidden="true">✨</div>
-            <h3>Upgrade to Pro</h3>
-            <p>Unlock unlimited tracking, deeper AI analysis, and premium exports.</p>
-            <div class="status-badge status-free" id="subscriptionTier">Free plan</div>
+            <h3><?php echo $isActiveSubscriber ? 'You’re on Pro' : 'Upgrade to Pro'; ?></h3>
+            <p><?php echo htmlspecialchars($subscriptionDescription); ?></p>
+            <div class="status-badge <?php echo $planClass; ?>" id="subscriptionTier"><?php echo htmlspecialchars($planLabel); ?></div>
             <div class="subscription-details">
-              <span><strong>Daily entries</strong><span>3 / 5 used</span></span>
-              <span><strong>AI analysis</strong><span>1 / 2 used</span></span>
-              <span><strong>Export sharing</strong><span class="muted">Limited</span></span>
+              <span>Status <strong><?php echo htmlspecialchars($statusLabel); ?></strong></span>
+              <span>Plan <strong><?php echo htmlspecialchars($planLabel); ?></strong></span>
+              <span>Next step <strong><?php echo htmlspecialchars($renewalLabel); ?></strong></span>
             </div>
-            <button type="button" class="btn btn-blue btn-large">Upgrade in app</button>
+            <button type="button" class="<?php echo $subscriptionCtaClass; ?>"><?php echo htmlspecialchars($subscriptionCtaLabel); ?></button>
             <p class="muted">Manage subscription from the QuietGo mobile app.</p>
           </aside>
         </div>
